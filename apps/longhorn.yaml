@@ -16,3 +16,7 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
+    defaultBackupStore:
+      backupTarget: "s3://k3s-homelab-longhorn-backup@us/"
+      backupTargetCredentialSecret: "longhorn-gcp-backup-creds"
+      pollInterval: "180"
