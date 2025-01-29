@@ -1,3 +1,4 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -5,7 +6,6 @@ metadata:
   namespace: database
 spec:
   instances: 3
-
   storage:
     size: 20Gi
     storageClass: longhorn
