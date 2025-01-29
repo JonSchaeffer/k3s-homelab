@@ -13,6 +13,10 @@ spec:
     roles:
       - name: vaultwarden
         login: true
+        ensure: present
         comment: "User for vaultwarden"
+        superuser: false
+        inRoles:
+          - pg_database_owner
         passwordSecret:
           name: vaultwarden-db-credentials
