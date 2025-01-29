@@ -16,3 +16,5 @@ spec:
         comment: "User for vaultwarden"
         login: true
         superuser: false
+        passwordSecret:
+          name: vaultwarden-db-credentials
