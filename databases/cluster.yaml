@@ -9,6 +9,8 @@ spec:
   storage:
     size: 20Gi
     storageClass: longhorn
+  monitoring:
+    enablePodMonitor: true
   managed:
     roles:
       - name: vaultwarden
