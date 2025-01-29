@@ -16,6 +16,7 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
+    domain: "vaultwarden.porgy-monitor.ts.net"
     database:
       type: postgresql
       existingSecret: "vaultwarden-db-creds"
