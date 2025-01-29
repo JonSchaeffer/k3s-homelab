@@ -9,3 +9,10 @@ spec:
   storage:
     size: 20Gi
     storageClass: longhorn
+  managed:
+    roles:
+      - name: vaultwarden
+        login: true
+        comment: "User for vaultwarden"
+        passwordSecret:
+          name: vaultwarden-db-credentials
