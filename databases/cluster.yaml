@@ -1,10 +1,11 @@
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: vaultwarden
+  name: postgresql
 spec:
   instances: 3
 
   storage:
-    size: 3Gi
+    size: 20Gi
     storageClass: longhorn
