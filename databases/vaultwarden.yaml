@@ -4,7 +4,8 @@ metadata:
   name: vaultwarden
   namespace: database
 spec:
-  cluster: "postgresql"
+  cluster:
+    name: postgresql
   ensure: present
   name: vaultwarden
   owner: vaultwarden
