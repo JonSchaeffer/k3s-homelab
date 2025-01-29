@@ -7,7 +7,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: bitnami/redis
+      chart: redis
       reconcileStrategy: Revision
       version: "20.6.3"
       sourceRef:
