@@ -1,18 +1,13 @@
-# apiVersion: helm.toolkit.fluxcd.io/v2
-# kind: HelmRelease
-# metadata:
-#   name: redis
-#   namespace: database
-# spec:
-#   interval: 1m
-#   chart:
-#     spec:
-#       chart: redis
-#       reconcileStrategy: Revision
-#       version: 20.6.2
-#       sourceRef:
-#         kind: OCIRepository
-#         name: bitnami
-#         namespace: flux-system
-#       interval: 1m
-#   values:
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: database
+spec:
+  interval: 1m
+  releaseName: redis
+  chartRef:
+    kind: OCIRepository
+    name: redis
+    namespace: flux-system
+  values:

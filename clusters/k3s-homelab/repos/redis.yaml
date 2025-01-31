@@ -4,10 +4,7 @@ metadata:
   name: redis
   namespace: flux-system
 spec:
-  interval: 1h
-  layerSelector:
-    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-    operation: copy
+  interval: 5m0s
   url: oci://registry-1.docker.io/bitnamicharts/redis
   ref:
-    semver: "20.6.3" # check for new patch versions every hour
+    tag: latest
