@@ -9,7 +9,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       reconcileStrategy: Revision
-      version: "68.4.4"
+      version: "68.5.0"
       sourceRef:
         kind: HelmRepository
         name: kube-prom-stack
