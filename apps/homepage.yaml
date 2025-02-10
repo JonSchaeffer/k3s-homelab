@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homepage
+  namespace: homelab
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: homepage
+      reconcileStrategy: Revision
+      version: "2.0.1"
+      sourceRef:
+        kind: HelmRepository
+        name: homepage
+        namespace: flux-system
+      interval: 1m
+  values:
+    config:
+      services:
+        - Services:
+            - Pihole:
+                href: https://pihole.porgy-monitor.ts.net/admin
+                widget:
+                  type: pihole
+                  url: http://pihole-web
+                  key: 998ed4d621742d0c2d85ed84173db569afa194d4597686cae947324aa58ab4bb
+                  # version: 5 # required if running v6 or higher, defaults to 5
+            - Grafana:
+                href: https://grafana.porgy-monitor.ts.net
+
+      bookmarks:
+      - Developer:
+          - Github:
+              - abbr: GH
+                href: https://github.com/JonSchaeffer
+          - ArtifactHub:
+              - abbr: GH
+                href: https://artifacthub.io
+      widgets:
+      - resources:
+          # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
+          backend: kubernetes
+          expanded: true
+          cpu: true
+          memory: true
+      # - widget:
+      #   type: pihole
+      #   url: pihole.porgy-monitor.ts.net
+      #   version: 5 # required if running v6 or higher, defaults to 5
+          #key: yourpiholeapikey # optional, in v6 can be your password or app password
+
+    # The service account is necessary to allow discovery of other services
+    serviceAccount:
+      create: true
+      name: homepage
+
+    # This enables the service account to access the necessary resources
+    enableRbac: true

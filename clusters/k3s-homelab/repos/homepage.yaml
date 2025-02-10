@@ -1,8 +1,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: homer
+  name: homepage
   namespace: flux-system
 spec:
   interval: 5m0s
-  url: https://djjudas21.github.io/charts/
+  url: http://jameswynn.github.io/helm-charts
