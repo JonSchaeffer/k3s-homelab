@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: speedtest
+  namespace: database
+spec:
+  cluster:
+    name: postgresql
+  ensure: present
+  name: speedtest
+  owner: speedtest
+  allowConnections: true

@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: speedtest-tracker
+  namespace: homelab
+spec:
+  defaultBackend:
+    service:
+      name: speedtest-tracker
+      port:
+        number: 80
+  ingressClassName: tailscale
+  tls:
+    - hosts:
+        - speedtest

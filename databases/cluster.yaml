@@ -20,3 +20,11 @@ spec:
         superuser: false
         passwordSecret:
           name: vaultwarden-db-credentials
+      - name: speedtest
+        ensure: present
+        comment: "User for speedtest"
+        login: true
+        superuser: false
+        passwordSecret:
+          name: speedtest-db-credentials
+
