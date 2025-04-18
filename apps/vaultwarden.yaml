@@ -9,7 +9,7 @@ spec:
     spec:
       chart: vaultwarden
       reconcileStrategy: Revision
-      version: "0.31.6"
+      version: "0.31.8"
       sourceRef:
         kind: HelmRepository
         name: vaultwarden
