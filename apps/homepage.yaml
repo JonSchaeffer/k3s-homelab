@@ -25,9 +25,18 @@ spec:
                   type: pihole
                   url: http://pihole-web
                   key: 998ed4d621742d0c2d85ed84173db569afa194d4597686cae947324aa58ab4bb
-                  # version: 5 # required if running v6 or higher, defaults to 5
+                    # version: 5 # required if running v6 or higher, defaults to 5
+            - Speedtest Tracker:
+                href: https://speedtest.porgy-monitor.ts.net
+                widget:
+                  type: speedtest
+                  url: http://speedtest-tracker
             - Grafana:
                 href: https://grafana.porgy-monitor.ts.net
+            - Stirling PDF:
+                href: https://pdf.porgy-monitor.ts.net
+            - Vaultwarden:
+                href: https://vaultwarden.porgy-monitor.ts.net
 
       bookmarks:
       - Developer:
@@ -35,8 +44,12 @@ spec:
               - abbr: GH
                 href: https://github.com/JonSchaeffer
           - ArtifactHub:
-              - abbr: GH
+              - abbr: AH
                 href: https://artifacthub.io
+          - Tailscale:
+              - abbr: TS
+                href: https://login.tailscale.com/admin/machines
+          - 
       widgets:
       - resources:
           # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
@@ -44,11 +57,18 @@ spec:
           expanded: true
           cpu: true
           memory: true
-      # - widget:
-      #   type: pihole
-      #   url: pihole.porgy-monitor.ts.net
-      #   version: 5 # required if running v6 or higher, defaults to 5
-          #key: yourpiholeapikey # optional, in v6 can be your password or app password
+      - search:
+          provider: duckduckgo
+          focus: true
+          showSearchSuggestions: true
+          target: _blank
+      - datetime:
+          text_size: xl
+          format:
+            timeStyle: short
+            dateStyle: short
+            hour12: true
+
 
     # The service account is necessary to allow discovery of other services
     serviceAccount:
