@@ -96,5 +96,17 @@ spec:
         type: LoadBalancer
         ports:
           http:
-            port: 32400
-            nodePort: 32400
+            port:  &port 32400
+            nodePort: *port
+    ingress:
+      app:
+        enabled: true
+        className: tailscale
+        defaultBackend:
+          service:
+            name: *app
+            port:
+              number: *port
+        tls:
+          - hosts:
+            - *app
