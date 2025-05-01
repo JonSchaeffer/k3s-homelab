@@ -1,3 +1,4 @@
+---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -75,13 +76,11 @@ spec:
               runAsNonRoot: false
         pod:
           securityContext:
-            # Only for the sabnzbd container, not for gluetun
-            # But we can't easily set different security contexts per container with this chart
-            # So we need to override at the container level instead
             fsGroup: 568
-            # runAsGroup: 568
-            # runAsUser: 568
+            runAsGroup: 568
+            runAsUser: 568
             fsGroupChangePolicy: "OnRootMismatch"
+
     ingress:
       app:
         enabled: true
@@ -113,9 +112,9 @@ spec:
           nfs:
             server: "192.168.0.147"
             path: /mnt/md0/media/downloads
-          globalMounts:
-            - path: /downloads
-              subPath: usenet
+        globalMounts:
+          - path: /downloads
+            subPath: usenet
       incomplete:
         enabled: true
         type: emptyDir
