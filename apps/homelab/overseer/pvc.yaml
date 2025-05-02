@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseer-config
+  namespace: homelab
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: overseer-cache
+  namespace: homelab
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn

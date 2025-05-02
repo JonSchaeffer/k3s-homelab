@@ -1,0 +1,127 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app qbittorrent
+  namespace: homelab
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: default
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      qbittorrent:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.1.0@sha256:1cd84c74d3c7ccb7d2edb43fec4cdd2306f6ca30b7e85efd762fa476e1470fba
+            env:
+              TZ: America/New_York
+              QBT_WEBUI_PORT: &port 80
+              QBT_TORRENTING_PORT: &torrentPort 50413
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 250Mi
+              limits:
+                memory: 2Gi
+          gluetun:
+            env:
+              VPN_SERVICE_PROVIDER: "privado"
+              OPENVPN_USER: nhycwkqgflnc
+              SERVER_REGIONS: "Virginia"
+              DNS_ADDRESS: 10.43.0.10
+              LOG_LEVEL: "debug"
+              DOT: "off"
+              FIREWALL: "off"
+            envFrom:
+              - secretRef:
+                  name: sabnzbd-vpn-secret
+            image:
+              repository: ghcr.io/qdm12/gluetun
+              tag: v3.40.0
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+              privileged: true
+              allowPrivilegeEscalation: true
+              runAsUser: 0 # Run as root to ensure proper permissions
+              runAsGroup: 0
+              runAsNonRoot: false
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            primary: true
+            port: *port
+          bittorrent:
+            enabled: true
+            port: *torrentPort
+            protocol: TCP
+    ingress:
+      app:
+        enabled: true
+        className: tailscale
+        defaultBackend:
+          service:
+            name: *app
+            port:
+              number: *port
+        tls:
+          - hosts:
+            - *app
+    # Note: If downloading very large torrents it might be worth using NFS for your download directory.
+    # Beware if you are downloading torrents directly to a ZFS dataset that dataset will accrue fragmentation.
+    persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent-config
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "192.168.0.147"
+            path: /mnt/md0/media/downloads
+        globalMounts:
+          - path: /downloads
+            subPath: usenet
+      tmp:
+        type: emptyDir
+      incomplete:
+        enabled: true
+        type: emptyDir
