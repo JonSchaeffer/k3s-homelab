@@ -7,7 +7,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: pihole
+      chart: reloader
       reconcileStrategy: Revision
       version: "1.3.0"
       sourceRef:
