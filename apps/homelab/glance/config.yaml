@@ -34,18 +34,25 @@ data:
                   - type: lobsters
               - type: videos
                 channels:
-                  - UCXuqSBlHAE6Xw-yeJA0Tunw
-                  - UCR-DXc1voovS8nhAvccRZhg
-                  - UCsBjURrPoezykLs9EqgamOA
-                  - UCBJycsmduvYEL83R_U4JriQ
-                  - UCHnyfMqiRRG1u-2MsSQLbXA
+                  - UCXuqSBlHAE6Xw-yeJA0Tunw   # Linus Tech Tips
+                  - UC7s6t5KCNwRkb7U_3-E1Tpw   # Jake Baldino
+                  - UCR-DXc1voovS8nhAvccRZhg   # Jeff Geerling
+                  - UCo71RUe6DX4w-Vd47rFLXPg   # Typecraft
+                  - UCOk-gHyjcWZNj3Br4oxwh0A   # Techno Tim
+                  - UCsnGwSIHyoYN0kiINAGUKxg   # Wolfgang's Channel
               - type: group
                 widgets:
                   - type: reddit
-                    subreddit: technology
+                    subreddit: selfhosted
                     show-thumbnails: true
                   - type: reddit
-                    subreddit: selfhosted
+                    subreddit: pittsburgh
+                    show-thumbnails: true
+                  - type: reddit
+                    subreddit: homelab
+                    show-thumbnails: true
+                  - type: reddit
+                    subreddit: worldnews
                     show-thumbnails: true
           - size: small
             widgets:
@@ -55,17 +62,64 @@ data:
                 hour-format: 12h
               - type: markets
                 markets:
-                  - symbol: NASDAQ
+                  - symbol: ^IXIC
                     name: NASDAQ
-                  - symbol: NYSE
-                    name: NYSE
+                  - symbol: ^GSPC
+                    name: S&P 500
                   - symbol: FSLY
                     name: Fastly
-        
-              - type: releases
-                cache: 1d
-                repositories:
-                  - glanceapp/glance
-                  - go-gitea/gitea
-                  - immich-app/immich
-                  - syncthing/syncthing
+      - name: Homelab
+        columns:
+          - size: small
+            widgets:
+            - type: server-stats
+              servers:
+                - type: local
+                  name: Homelab
+            - type: repository
+              repository: JonSchaeffer/k3s-homelab
+              pull-requests-limit: 5
+              commits-limit: 3
+          - size: full
+            widgets:
+            - type: monitor
+              cache: 1m
+              title: Services
+              sites:
+                - title: AudioBookShelf
+                  url: http://audiobookshelf
+                  icon: si:audiobookshelf
+                - title: Overseerr
+                  url: http://overseerr:5055
+                  icon: si:overseerr
+                - title: Plex
+                  url: http://plex:32400
+                  icon: si:plex
+                - title: Prowlarr
+                  url: http://prowlarr
+                  icon: si:proton
+                - title: qBittorrent
+                  url: http://qbittorrent
+                  icon: si:qbittorrent
+                - title: Radarr
+                  url: http://radarr
+                  icon: si:radarr
+                - title: Radarr-UHD
+                  url: http://radarr-uhd
+                  icon: si:radarr
+                - title: Readarr
+                  url: http://readarr
+                  icon: si:readarr:8787
+                - title: Sabnzbd
+                  url: http://Sabnzbd:8080
+                  icon: si:sabnzbd
+                - title: Sonarr
+                  url: http://sonarr
+                  icon: si:sonarr
+                - title: Tautulli
+                  url: http://tautulli:8181
+                  icon: si:tautulli
+                - title: Speedtest
+                  url: http://speedtest
+                  icon: si:speedtest
+
