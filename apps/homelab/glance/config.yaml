@@ -87,39 +87,39 @@ data:
               title: Services
               sites:
                 - title: AudioBookShelf
-                  url: http://audiobookshelf
+                  url: https://audiobookshelf.porgy-monitor.ts.net
                   icon: si:audiobookshelf
                 - title: Overseerr
-                  url: http://overseerr:5055
+                  url: https://overseerr.porgy-monitor.ts.net
                   icon: si:overseerr
                 - title: Plex
-                  url: http://plex:32400
+                  url: https://plex.porgy-monitor.ts.net
                   icon: si:plex
                 - title: Prowlarr
-                  url: http://prowlarr
+                  url: https://prowlarr.porgy-monitor.ts.net
                   icon: si:proton
                 - title: qBittorrent
-                  url: http://qbittorrent
+                  url: https://qbittorrent.porgy-monitor.ts.net
                   icon: si:qbittorrent
                 - title: Radarr
-                  url: http://radarr
+                  url: https://radarr.porgy-monitor.ts.net
                   icon: si:radarr
                 - title: Radarr-UHD
-                  url: http://radarr-uhd
+                  url: https://radarr-uhd.porgy-monitor.ts.net
                   icon: si:radarr
                 - title: Readarr
-                  url: http://readarr
+                  url: https://readarr-uhd.porgy-monitor.ts.net
                   icon: si:readarr:8787
                 - title: Sabnzbd
-                  url: http://Sabnzbd:8080
+                  url: https://sabnzbd.porgy-monitor.ts.net
                   icon: si:sabnzbd
                 - title: Sonarr
-                  url: http://sonarr
+                  url: https://sonarr.porgy-monitor.ts.net
                   icon: si:sonarr
                 - title: Tautulli
-                  url: http://tautulli:8181
+                  url: https://tautulli.porgy-monitor.ts.net
                   icon: si:tautulli
                 - title: Speedtest
-                  url: http://speedtest
+                  url: https://speedtest.porgy-monitor.ts.net
                   icon: si:speedtest
 
