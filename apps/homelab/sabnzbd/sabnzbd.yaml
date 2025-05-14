@@ -74,12 +74,12 @@ spec:
           #     runAsUser: 0 # Run as root to ensure proper permissions
           #     runAsGroup: 0
           #     runAsNonRoot: false
-        # pod:
-        #   securityContext:
-        #     fsGroup: 568
-        #     runAsGroup: 568
-        #     runAsUser: 568
-        #     fsGroupChangePolicy: "OnRootMismatch"
+      pod:
+        securityContext:
+          fsGroup: 568
+          runAsGroup: 568
+          runAsUser: 568
+          fsGroupChangePolicy: "OnRootMismatch"
 
     ingress:
       app:
