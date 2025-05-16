@@ -50,34 +50,34 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-          gluetun:
-            env:
-              VPN_SERVICE_PROVIDER: "private internet access"
-              OPENVPN_USER: p2669071
-              SERVER_REGIONS: "US Virginia"
-              PORT_FORWARD_ONLY: false
-              DNS_ADDRESS: 1.1.1.1
-            envFrom:
-              - secretRef:
-                  name: sabnzbd-vpn-secret
-            image:
-              repository: ghcr.io/qdm12/gluetun
-              tag: v3.40.0
-            securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-              privileged: true
-              allowPrivilegeEscalation: true
-              runAsUser: 0 # Run as root to ensure proper permissions
-              runAsGroup: 0
-              runAsNonRoot: false
         pod:
           securityContext:
             fsGroup: 568
             runAsGroup: 568
             runAsUser: 568
             fsGroupChangePolicy: "OnRootMismatch"
+          # gluetun:
+            # env:
+            #   VPN_SERVICE_PROVIDER: "private internet access"
+            #   OPENVPN_USER: p2669071
+            #   SERVER_REGIONS: "US Virginia"
+            #   PORT_FORWARD_ONLY: false
+            #   DNS_ADDRESS: 1.1.1.1
+            # envFrom:
+            #   - secretRef:
+            #       name: sabnzbd-vpn-secret
+            # image:
+            #   repository: ghcr.io/qdm12/gluetun
+            #   tag: v3.40.0
+            # securityContext:
+            #   capabilities:
+            #     add:
+            #       - NET_ADMIN
+            #   privileged: true
+            #   allowPrivilegeEscalation: true
+            #   runAsUser: 0 # Run as root to ensure proper permissions
+            #   runAsGroup: 0
+            #   runAsNonRoot: false
 
     ingress:
       app:
