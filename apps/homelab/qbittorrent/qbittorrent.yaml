@@ -52,13 +52,10 @@ spec:
                 memory: 2Gi
           gluetun:
             env:
-              VPN_SERVICE_PROVIDER: "privado"
-              OPENVPN_USER: nhycwkqgflnc
-              SERVER_REGIONS: "Virginia"
-              DNS_ADDRESS: 10.43.0.10
-              LOG_LEVEL: "debug"
-              DOT: "off"
-              FIREWALL: "off"
+              VPN_SERVICE_PROVIDER: "private internet access"
+              OPENVPN_USER: p2669071
+              SERVER_REGIONS: "US Virginia"
+              PORT_FORWARD_ONLY: false
             envFrom:
               - secretRef:
                   name: sabnzbd-vpn-secret
