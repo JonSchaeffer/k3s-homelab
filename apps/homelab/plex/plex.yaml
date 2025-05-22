@@ -28,6 +28,7 @@ spec:
               tag: 1.41.7.9799@sha256:0c31ee1ebee0b63ead2de2accc6c52b1e65e9322b39118715eeac8b2f2bb786f
             env:
               PLEX_NO_AUTH_NETWORKS: 192.168.0.0/24
+              PLEX_ADVERTISE_URL: 192.168.0.55
               TZ: America/New_York
             # probes:
             #   liveness: &probes
