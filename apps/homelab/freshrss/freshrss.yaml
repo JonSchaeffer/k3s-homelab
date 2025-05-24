@@ -44,9 +44,9 @@ spec:
               tag: latest@sha256:75cf15e9b779df205118feb55c973b06bc435fd89b6484930435e59674efe63c
               pullPolicy: IfNotPresent
             securityContext:
-              runAsUser: 33  # www-data user ID
-              runAsGroup: 33 # www-data group ID
-              fsGroup: 33    # Ensures mounted volumes have correct group ownership
+              runAsUser: 0  # www-data user ID
+              runAsGroup: 0 # www-data group ID
+              fsGroup: 0    # Ensures mounted volumes have correct group ownership
     service:
       freshrss:
         controller: *app
