@@ -93,4 +93,4 @@ spec:
         advancedMounts:
           fivefilters-full-text-rss:
             fivefilters-full-text-rss:
-              - path: /var/www/html/cache/rss
+              - path: /var/www/html/cache
