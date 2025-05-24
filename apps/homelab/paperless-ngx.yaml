@@ -86,12 +86,12 @@ spec:
               globalMounts:
                 - path: /usr/src/paperless/data
               name: data
-              size: 1Mi
+              size: 1Gi
             - accessMode: ReadWriteOnce
               globalMounts:
                 - path: /usr/src/paperless/media
               name: media
-              size: 1Mi
+              size: 1Gi
         type: statefulset
     ingress:
       app:
