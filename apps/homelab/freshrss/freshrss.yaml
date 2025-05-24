@@ -74,6 +74,8 @@ spec:
       fivefilters-full-text-rss:
         enabled: true
         className: tailscale
+        annotations:
+          tailscale.com/funnel: "true"
         defaultBackend:
           service:
             name: freshrss-fivefilters-full-text-rss
