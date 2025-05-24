@@ -9,7 +9,7 @@ spec:
     spec:
       chart: tailscale-operator
       reconcileStrategy: Revision
-      version: "1.82.5"
+      version: "1.84.0"
       sourceRef:
         kind: HelmRepository
         name: tailscale
