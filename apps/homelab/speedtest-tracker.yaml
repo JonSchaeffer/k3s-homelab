@@ -1,92 +1,92 @@
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: speedtest-tracker
-  namespace: homelab
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: speedtest-tracker
-  namespace: homelab
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: speedtest-tracker
-  template:
-    metadata:
-      labels:
-        app: speedtest-tracker
-    spec:
-      dnsPolicy: ClusterFirst
-      dnsConfig:
-        # nameservers:
-        #   - 10.152.183.10
-        #   - 8.8.8.8
-        # searches:
-        #   - speedtest-tracker.svc.cluster.local
-        # options:
-        #   - name: ndots
-        #     value: "5"
-      containers:
-        - name: speedtest-tracker
-          image: lscr.io/linuxserver/speedtest-tracker:latest
-          env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: America/New_York
-            - name: APP_KEY
-              value: base64:8DqvkpzhmSTtWKdL9gj0b4CGGwz2G8f8yWplKyeARRs=
-            - name: DISPLAY_TIMEZONE
-              value: UTC
-            - name: DB_CONNECTION
-              value: pgsql
-            - name: DB_HOST
-              value: postgresql-rw.database.svc.cluster.local
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_DATABASE
-              value: speedtest
-            - name: DB_USERNAME
-              value: speedtest
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: speedtest-db-password
-                  key: password
-            - name: SPEEDTEST_SCHEDULE
-              value: "0 * * * *"
-            - name: SPEEDTEST_SERVERS
-              value: "30396"
-
-          volumeMounts:
-            - mountPath: /config
-              name: speedtest-tracker
-      volumes:
-        - name: speedtest-tracker
-          persistentVolumeClaim:
-            claimName: speedtest-tracker
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: speedtest-tracker
-  name: speedtest-tracker
-  namespace: homelab
-spec:
-  ports:
-    - port: 80
-  selector:
-    app: speedtest-tracker
-  type: ClusterIP
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: speedtest-tracker
+#   namespace: homelab
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 5Gi
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: speedtest-tracker
+#   namespace: homelab
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: speedtest-tracker
+#   template:
+#     metadata:
+#       labels:
+#         app: speedtest-tracker
+#     spec:
+#       dnsPolicy: ClusterFirst
+#       dnsConfig:
+#         # nameservers:
+#         #   - 10.152.183.10
+#         #   - 8.8.8.8
+#         # searches:
+#         #   - speedtest-tracker.svc.cluster.local
+#         # options:
+#         #   - name: ndots
+#         #     value: "5"
+#       containers:
+#         - name: speedtest-tracker
+#           image: lscr.io/linuxserver/speedtest-tracker:latest
+#           env:
+#             - name: PUID
+#               value: "1000"
+#             - name: PGID
+#               value: "1000"
+#             - name: TZ
+#               value: America/New_York
+#             - name: APP_KEY
+#               value: base64:8DqvkpzhmSTtWKdL9gj0b4CGGwz2G8f8yWplKyeARRs=
+#             - name: DISPLAY_TIMEZONE
+#               value: UTC
+#             - name: DB_CONNECTION
+#               value: pgsql
+#             - name: DB_HOST
+#               value: postgresql-rw.database.svc.cluster.local
+#             - name: DB_PORT
+#               value: "5432"
+#             - name: DB_DATABASE
+#               value: speedtest
+#             - name: DB_USERNAME
+#               value: speedtest
+#             - name: DB_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: speedtest-db-password
+#                   key: password
+#             - name: SPEEDTEST_SCHEDULE
+#               value: "0 * * * *"
+#             - name: SPEEDTEST_SERVERS
+#               value: "30396"
+#
+#           volumeMounts:
+#             - mountPath: /config
+#               name: speedtest-tracker
+#       volumes:
+#         - name: speedtest-tracker
+#           persistentVolumeClaim:
+#             claimName: speedtest-tracker
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app: speedtest-tracker
+#   name: speedtest-tracker
+#   namespace: homelab
+# spec:
+#   ports:
+#     - port: 80
+#   selector:
+#     app: speedtest-tracker
+#   type: ClusterIP
