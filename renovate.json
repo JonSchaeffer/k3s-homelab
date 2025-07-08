@@ -3,6 +3,9 @@
   "extends": [
     "config:base"
   ],
+  "automergeType": "pr",
+  "automergeStrategy": "merge",
+  "platformAutomerge": true,
   "flux": {
     "fileMatch": ["\\.yaml$"]
   },
