@@ -1,0 +1,62 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app reader-frontend
+  namespace: reader
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: default
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  interval: 15m
+  maxHistory: 2
+  uninstall:
+    keepHistory: false
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: uninstall
+      retries: 3
+  values:
+    controller:
+      strategy: Recreate
+    controllers:
+      reader-frontend:
+        containers:
+          app:
+            env:
+              VITE_API_BASE: "https://reader-backend.porgy-monitor.ts.net/api"
+              NODE_ENV: development
+              VITE_CACHE_DIR: "/tmp/vite-cache"
+            image:
+              repository: ghcr.io/jonschaeffer/go-reader-frontend
+              tag: sha-ab76c5a
+            resources:
+              limits:
+                memory: 500Mi
+              requests:
+                cpu: 10m
+                memory: 250Mi
+    service:
+      app:
+        controller: *app
+        ports:
+          reader-frontend:
+            port: &port 3000
+    ingress:
+      app:
+        enabled: true
+        className: tailscale
+        defaultBackend:
+          service:
+            name: *app
+            port:
+              number: *port
+        tls:
+          - hosts:
+            - *app
