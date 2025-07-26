@@ -3,8 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "platform": "github",
-  "platformAutomerge": true,
   "flux": {
     "fileMatch": ["\\.yaml$"]
   },
