@@ -6,6 +6,7 @@
   "automergeType": "pr",
   "automerge": true,
   "automergeStrategy": "merge",
+  "platform": "github",
   "platformAutomerge": true,
   "flux": {
     "fileMatch": ["\\.yaml$"]
