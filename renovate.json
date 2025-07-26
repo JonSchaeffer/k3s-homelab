@@ -4,6 +4,7 @@
     "config:base"
   ],
   "automergeType": "pr",
+  "automerge": true,
   "automergeStrategy": "merge",
   "platformAutomerge": true,
   "flux": {
