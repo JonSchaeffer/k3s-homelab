@@ -3,9 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "automergeType": "pr",
-  "automerge": true,
-  "automergeStrategy": "merge",
   "platform": "github",
   "platformAutomerge": true,
   "flux": {
@@ -16,9 +13,11 @@
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
+      "automergeType": "pr",
+      "automergeStrategy": "merge",
     }
   ]
 }
