@@ -37,7 +37,7 @@ spec:
               SEARXNG_BASE_URL: https://search.porgy-monitor.ts.net
               SEARXNG_URL: https://search.porgy-monitor.ts.net
               SEARXNG_PORT: &port 8080
-              SEARXNG_REDIS_URL: redis://searxng-redis.selfhosted.svc.cluster.local:6379/0
+              SEARXNG_REDIS_URL: redis://searxng-redis.homelab.svc.cluster.local:6379/0
             envFrom:
               - secretRef:
                   name: searxng-secret
