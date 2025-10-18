@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app homeassistant
+  namespace: homelab
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: default
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      homeassistant:
+        pod:
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            fsGroup: 0
+            fsGroupChangePolicy: OnRootMismatch
+          hostNetwork: true
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2025.10.2
+            env:
+              TZ: America/New_York
+              LOG_LEVEL: "info"
+              PORT: &port 8123
+              DBUS_SYSTEM_BUS_ADDRESS: unix:path=/run/dbus/system_bus_socket
+            securityContext:
+              privileged: true
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: tailscale
+        defaultBackend:
+          service:
+            name: *app
+            port:
+              number: *port
+        tls:
+          - hosts:
+              - *app
+    persistence:
+      config:
+        enabled: true
+        existingClaim: homeassistant-config
+      http-config:
+        enabled: true
+        type: configMap
+        name: homeassistant-http-config
+        globalMounts:
+          - path: /config/http.yaml
+            subPath: http.yaml
+      bluetooth:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/bus/usb
+        globalMounts:
+          - path: /dev/bus/usb
+      dbus:
+        enabled: true
+        type: hostPath
+        hostPath: /run/dbus
+        globalMounts:
+          - path: /run/dbus
+    configMaps:
+      http-config:
+        enabled: true
+        data:
+          http.yaml: |
+            http:
+              use_x_forwarded_for: true
+              trusted_proxies:
+                - 10.42.0.0/16
