@@ -32,6 +32,15 @@ spec:
             fsGroup: 0
             fsGroupChangePolicy: OnRootMismatch
           hostNetwork: true
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                          - k3s-1
         containers:
           app:
             image:
@@ -92,6 +101,12 @@ spec:
         hostPath: /run/dbus
         globalMounts:
           - path: /run/dbus
+      zigbee-dongle:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fcfa77925f4eef11b7234cb3174bec31-if00-port0
+        globalMounts:
+          - path: /dev/ttyUSB0
     configMaps:
       http-config:
         enabled: true
