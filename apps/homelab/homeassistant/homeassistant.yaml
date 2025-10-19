@@ -70,6 +70,8 @@ spec:
       app:
         enabled: true
         className: tailscale
+        annotations:
+          tailscale.com/funnel: "true"
         defaultBackend:
           service:
             name: *app
