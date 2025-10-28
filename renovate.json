@@ -3,7 +3,7 @@
   "extends": [
     "config:base"
   ],
-  "platformAutomerge": false,
+  "platformAutomerge": true,
   "ignorePaths": [
     "**/flux-system/**",
     "flux-system/**"
