@@ -3,6 +3,7 @@
   "extends": [
     "config:base"
   ],
+  "schedule": ["after 11pm every weekday", "before 5am every weekday"]
   "platformAutomerge": true,
   "ignorePaths": [
     "**/flux-system/**",
