@@ -4,9 +4,6 @@
     "config:base"
   ],
   "platformAutomerge": false,
-  "flux": {
-    "fileMatch": ["\\.yaml$"]
-  },
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
