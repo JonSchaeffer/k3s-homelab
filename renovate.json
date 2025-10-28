@@ -4,6 +4,10 @@
     "config:base"
   ],
   "platformAutomerge": false,
+  "ignorePaths": [
+    "**/flux-system/**",
+    "flux-system/**"
+  ],
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
