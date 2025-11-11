@@ -3,7 +3,7 @@
   "extends": [
     "config:base"
   ],
-  "schedule": ["after 11pm every weekday", "before 5am every weekday"]
+  "schedule": ["after 11pm every weekday", "before 5am every weekday"],
   "platformAutomerge": true,
   "ignorePaths": [
     "**/flux-system/**",
@@ -18,7 +18,7 @@
       "matchCurrentVersion": "!/^0/",
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "merge",
+      "automergeStrategy": "merge"
     }
   ]
 }
