@@ -7,7 +7,7 @@
   ],
   "platformAutomerge": true,
   "ignorePaths": ["**/flux-system/**"],
-  "kubernetes": {
+  "flux": {
     "fileMatch": ["\\.yaml$", "\\.yml$"]
   },
   "packageRules": [
