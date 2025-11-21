@@ -9,26 +9,13 @@
   ],
   "platformAutomerge": true,
   "ignorePaths": [
-    "**/flux-system/**",
-    "flux-system/**"
+    "**/flux-system/**"
   ],
-  "kubernetes": {
-    "managerFilePatterns": [
-      "/\\.yaml$/"
-    ]
-  },
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "pin",
-        "digest"
-      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "matchCurrentVersion": "!/^0/",
-      "automerge": true,
-      "automergeType": "pr",
-      "automergeStrategy": "merge"
+      "automerge": true
     }
   ]
 }
