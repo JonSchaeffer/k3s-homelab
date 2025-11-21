@@ -1,16 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended"],
   "schedule": [
     "after 11pm every weekday",
     "before 5am every weekday"
   ],
   "platformAutomerge": true,
-  "ignorePaths": [
-    "**/flux-system/**"
-  ],
+  "ignorePaths": ["**/flux-system/**"],
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$", "\\.yml$"]
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
