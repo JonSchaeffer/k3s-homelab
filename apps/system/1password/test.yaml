@@ -1,0 +1,22 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: test-secret
+  namespace: homelab
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: onepassword-connect
+    kind: ClusterSecretStore
+  target:
+    name: test-secret # Name of the Kubernetes secret to create
+    creationPolicy: Owner
+  data:
+    - secretKey: username # Key in the Kubernetes secret
+      remoteRef:
+        key: test-secret # Name of the item in 1Password
+        property: username # Field in the 1Password item
+    - secretKey: password
+      remoteRef:
+        key: test-secret
+        property: password
