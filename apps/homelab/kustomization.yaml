@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./audiobookshelf
+  - ./bazarr
+  - ./esphome
+  - ./freshrss
+  - ./glance
+  - ./homeassistant
+  - ./karakeep
+  - ./overseer
+  - ./paperless-ngx
+  - ./pihole
+  - ./plex
+  - ./prowlarr
+  - ./qbittorrent
+  - ./radarr
+  - ./radarr-uhd
+  - ./readarr
+  # - ./reader  # Commented out - enable when ready
+  - ./sabnzbd
+  - ./scrypted
+  - ./searxng
+  - ./sonarr
+  - ./speedtest-tracker
+  - ./stirling-pdf
+  - ./tautulli
