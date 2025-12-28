@@ -117,7 +117,7 @@ spec:
             path: /mnt/md0/media/downloads
         globalMounts:
           - path: /downloads
-            subPath: usenet
+            subPath: torrents
       tmp:
         type: emptyDir
       incomplete:
