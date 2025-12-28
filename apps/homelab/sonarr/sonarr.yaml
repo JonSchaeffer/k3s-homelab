@@ -96,4 +96,3 @@ spec:
         path: /mnt/md0/media/downloads
         globalMounts:
           - path: /downloads
-            subPath: usenet
