@@ -86,7 +86,7 @@ spec:
         path: /mnt/md0/media
         globalMounts:
           - path: /media
-            readOnly: true
+            readOnly: false
       tmp:
         type: emptyDir
       transcode:
@@ -97,7 +97,7 @@ spec:
         type: LoadBalancer
         ports:
           http:
-            port:  &port 32400
+            port: &port 32400
             nodePort: *port
     ingress:
       app:
@@ -110,4 +110,4 @@ spec:
               number: *port
         tls:
           - hosts:
-            - *app
+              - *app
