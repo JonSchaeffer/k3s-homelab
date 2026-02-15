@@ -70,7 +70,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: kometa
       config-file:
         type: configMap
         name: "{{ .Release.Name }}-configmap"
