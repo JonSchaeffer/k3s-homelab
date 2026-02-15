@@ -5,19 +5,21 @@ libraries:
       - collections
       - metadata
       - operations
+      - overlays
     collection_files:
       - file: /config/custom/Movies-Trending.yml
       - file: /config/custom/Movies.yml
       - repo: Movies - Holidays by Drazzizzi.yml
       - default: basic
       - default: imdb
-    # overlay_files:
-    #   - remove_overlays: false
-    #   - repo: Movies - Overlays - Charts.yml
-    #   - repo: Movies - Overlays - Oscars.yml
-    #   - repo: Movies - Overlays - Ratings.yml
-    #   - repo: Movies - Overlays - Streaming Services.yml
-    #   - repo: Movies - Overlays - Studios.yml
+    overlay_files:
+      - remove_overlays: false
+      - default: ribbon          # IMDb Top 250, RT Certified Fresh
+      - default: ratings         # IMDb, RT, TMDb ratings
+      - default: streaming       # Streaming service logos
+      - default: studio          # Studio logos
+      - default: resolution      # 4K, 1080p, HDR, DV
+      - default: mediastinger    # Post/mid-credits scene badge
     operations:
       mass_genre_update: imdb
       mass_content_rating_update: omdb
@@ -30,19 +32,21 @@ libraries:
       - collections
       - metadata
       - operations
+      - overlays
     collection_files:
       - file: /config/custom/TvShows-Trending.yml
       - file: /config/custom/TvShows.yml
       - default: basic
       - default: imdb
-    # overlay_files:
-    #   - remove_overlays: false
-    #   - repo: TV Shows - Overlays - Charts.yml
-    #   - repo: TV Shows - Overlays - Networks.yml
-    #   - repo: TV Shows - Overlays - Ratings.yml
-    #   - repo: TV Shows - Overlays - Statuses.yml
-    #   - repo: TV Shows - Overlays - Streaming Services.yml
-    #   - repo: TV Shows - Overlays - Studios.yml
+    overlay_files:
+      - remove_overlays: false
+      - default: ribbon          # IMDb Top 250, RT Certified Fresh
+      - default: ratings         # IMDb, RT, TMDb ratings
+      - default: streaming       # Streaming service logos
+      - default: network         # Network logos (HBO, ABC, etc.)
+      - default: studio          # Studio logos
+      - default: status          # Returning, Ended, Canceled
+      - default: resolution      # 4K, 1080p, HDR, DV
     operations:
       mass_genre_update: tmdb
       mass_content_rating_update: omdb
