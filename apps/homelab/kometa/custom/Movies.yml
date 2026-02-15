@@ -1,0 +1,541 @@
+templates:
+  ############################
+  #        TEMPLATES         #
+  ############################
+
+  Charts:
+    sort_title: "!01_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    schedule: daily
+  Oscars:
+    sort_title: "!02_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release.desc
+    collection_mode: hide
+    schedule: yearly(03/01)
+  AFI's 100:
+    sort_title: "!03_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    schedule: yearly(03/01)
+  Best Of - Rotten Tomatoes - Years:
+    sort_title: "!04_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    schedule: yearly(03/01)
+  Best Of - Rotten Tomatoes - Genres:
+    sort_title: "!05_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    schedule: yearly(03/01)
+  Custom:
+    sort_title: "!06_<<collection_name>>"
+    sync_mode: sync
+    collection_order: alpha
+    collection_mode: hide
+    schedule: monthly(10)
+  Regular:
+    sort_title: "!07_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: monthly(10)
+  Genres:
+    sort_title: "!08_<<collection_name>>"
+    sync_mode: sync
+    collection_order: alpha
+    collection_mode: hide
+    schedule: weekly(friday)
+  IMDb Genres:
+    default:
+      type: feature
+      year_min: 1980
+      rating_min: 7
+      votes_min: 50000
+      limit: 100
+    imdb_search:
+      type: <<type>>
+      genre: <<genre>>
+      release.after: <<year_min>>-01-01
+      rating.gte: <<rating_min>>
+      votes.gte: <<votes_min>>
+      sort_by: rating.desc
+      limit: <<limit>>
+    sort_title: "!08_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    summary: A collection of <<genre>> movies from <<year_min>> to now, with a minimum rating of <<rating_min>> and at least <<votes_min>> votes from IMDb. Sorted by rating.
+    schedule: weekly(friday)
+  IMDb Keywords:
+    default:
+      type: movie
+      year_min: 1980
+      rating_min: 7
+      votes_min: 50000
+      limit: 100
+    imdb_search:
+      type: <<type>>
+      release.after: <<year_min>>-01-01
+      rating.gte: <<rating_min>>
+      votes.gte: <<votes_min>>
+      limit: <<limit>>
+    sort_title: "!09_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    summary: A collection of <<keyword>> movies from <<year_min>> to now, with a minimum rating of <<rating_min>> and at least <<votes_min>> votes from IMDb. Sorted by rating.
+    schedule: weekly(friday)
+  Streaming Services:
+    sort_title: "!10_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: daily
+  Studios:
+    sort_title: "!11_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: daily
+  Holidays:
+    sort_title: "!12_<<collection_name>>"
+    sync_mode: sync
+    collection_order: alpha
+    collection_mode: hide
+  Years:
+    sort_title: "!13_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: weekly(friday)
+  Random:
+    sort_title: "!15_<<collection_name>>"
+    smart_filter:
+      all:
+        genre: <<genre>>
+        year.gte: 1980
+      sort_by: random
+      limit: 5
+    collection_mode: hide
+    summary: Random <<genre>> movies every time it loads.
+    schedule: never
+
+############################
+#       COLLECTIONS        #
+############################
+
+collections:
+  ############################
+  #          CHARTS          #
+  ############################
+
+  IMDb Most Popular:
+    template: { name: Charts }
+    imdb_chart: popular_movies
+    collection_order: custom
+    sync_mode: sync
+  IMDb Top 250:
+    template: { name: Charts }
+    imdb_chart: top_movies
+    collection_order: custom
+    sync_mode: sync
+  TMDb Most Popular:
+    template: { name: Charts }
+    tmdb_popular: 30
+  TMDb Weekly Trending:
+    template: { name: Charts }
+    tmdb_trending_weekly: 30
+
+  ############################
+  #         BEST OF          #
+  ############################
+
+  AFI's 100:
+    template: { name: "AFI's 100" }
+    imdb_list: https://www.imdb.com/list/ls027841309
+    summary: AFI's 100 Years... 100 Movies – 10th Anniversary Edition (2007) is an updated edition to AFI"s 100 Years... 100 Movies, a list of the top 100 greatest American films of all time. Honoring the 10th anniversary of this award-winning series, a jury of 1,500 film artists, critics, and historians determined that Citizen Kane remained the greatest movie of all time. AFI stands for American Film Institute.
+  Best Animated Feature Film:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560364561
+  Best Cinematography:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560369098
+  Best Film Editing:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560364494
+  Best Picture:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560768259
+  Best Sound:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560369669
+  Best Visual Effects:
+    template: { name: Oscars }
+    imdb_list: https://www.imdb.com/list/ls560368042
+  Rotten Tomatoes - Best All Time:
+    template: { name: Best Of - Rotten Tomatoes - Years }
+    trakt_list: https://trakt.tv/users/lish408/lists/rotten-tomatoes-top-100-movies-of-all-time
+  Rotten Tomatoes - Best Horror:
+    template: { name: Best Of - Rotten Tomatoes - Genres }
+    trakt_list: https://trakt.tv/users/lish408/lists/rotten-tomatoes-best-horror-movies-of-all-time
+  Rotten Tomatoes - Best Rom Com:
+    template: { name: Best Of - Rotten Tomatoes - Genres }
+    trakt_list: https://trakt.tv/users/lish408/lists/rotten-tomatoes-the-200-best-romantic-comedies-of-all-time
+
+  ############################
+  #          CUSTOM          #
+  ############################
+
+  Heists, Scams, Cons, and Robbers:
+    template: { name: Custom }
+    imdb_list:
+      - https://www.imdb.com/list/ls021415585
+      - https://www.imdb.com/list/ls075742206
+      - https://www.imdb.com/list/ls098660180
+      - https://www.imdb.com/list/ls068224634
+      - https://www.imdb.com/list/ls009794682
+      - https://www.imdb.com/list/ls059928685
+  Historical Black Movies:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls560237349
+    schedule: range(02/01-02/28)
+    visible_home: range(02/01-02/28)
+    visible_shared: range(02/01-02/28)
+  Black History Month:
+    sort_title: "ZZZ_<<collection_name>>"
+    smart_filter:
+      all:
+        collection: Historical Black Movies
+      sort_by: random
+    collection_mode: hide
+    schedule: range(02/01-02/28)
+    delete_not_scheduled: true
+    visible_library: range(02/01-02/28)
+    visible_home: range(02/01-02/28)
+    visible_shared: range(02/01-02/28)
+  Inspirational & Heart Warming:
+    template: { name: Custom }
+    imdb_list:
+      - https://www.imdb.com/list/ls069754038
+      - https://www.imdb.com/list/ls079599062
+      - https://www.imdb.com/list/ls052687231
+    tmdb_movie:
+      - 227306 # Unbroken
+      - 14292 # Miracle
+      - 14534 # Rudy
+  Mindfuck:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls084006834
+    summary: Movies that are mind bending, trippy, have big twists, have open endings, or make you think about them for days.
+  Natural Disasters:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls505219626
+    tmdb_movie:
+      - 646380 # Don't Look Up
+  Prison:
+    template: { name: Custom }
+    imdb_list:
+      - https://www.imdb.com/list/ls021403323
+      - https://www.imdb.com/list/ls055859064
+      - https://www.imdb.com/list/ls053382995
+    tmdb_movie:
+      - 440471 # Escape Plan 2: Hades
+      - 480042 # Escape Plan: The Extractors
+      - 348893 # Boyka: Undisputed IV
+      - 51620 # Death Race 2
+      - 156717 # Death Race: Inferno
+      - 401478 # Death Race: Beyond Anarchy
+  Space Masterpieces:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls084547446
+  Spy & Agent:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls021488235
+  Time Travel:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls068617191
+    summary: The ability to travel through time is by far my favorite movie story line. The movies listed below have a wide range of inventive ways on how the subjects are moved across time.
+  True Stories:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls021398170
+  Unexpectedly Amazing:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls574663351
+  Video Games (Live-action):
+    template: { name: Custom }
+    mdblist_list: https://mdblist.com/lists/awesomeaustn/movies-based-on-video-games-live-action
+  War:
+    template: { name: Custom }
+    imdb_list: https://www.imdb.com/list/ls055731784
+    collection_order: custom
+    summary: War movies ranked by their success (awards & nominations), popularity, and cinematic greatness.
+
+  ############################
+  #         REGULAR          #
+  ############################
+
+  James Bond:
+    template: { name: Regular }
+    imdb_list: https://www.imdb.com/list/ls084710852
+  Star Trek:
+    template: { name: Regular }
+    imdb_list: https://www.imdb.com/list/ls084767125
+  Star Wars:
+    template: { name: Regular }
+    imdb_list: https://www.imdb.com/list/ls084761910
+  X-Men:
+    template: { name: Regular }
+    imdb_list: https://www.imdb.com/list/ls560205320
+
+  ############################
+  #          GENRES          #
+  ############################
+
+  "'80s Comedy":
+    template: { name: Genres }
+    plex_search:
+      all:
+        decade: 1980
+        genre: Comedy
+    sort_title: "!08_Comedy 1980s"
+  "'90s Comedy":
+    template: { name: Genres }
+    plex_search:
+      all:
+        decade: 1990
+        genre: Comedy
+    sort_title: "!08_Comedy 1990s"
+
+  ############################
+  #       IMDB GENRES        #
+  ############################
+
+  Action:
+    template: { name: IMDb Genres, genre: action }
+    summary: Action film is a genre wherein physical action takes precedence in the storytelling. The film will often have continuous motion and action including physical stunts, chases, fights, battles, and races.
+  Animation:
+    template: { name: IMDb Genres, genre: animation }
+    summary: Animated film is a collection of illustrations that are photographed frame-by-frame and then played in a quick succession.
+  Biography:
+    template: { name: IMDb Genres, genre: biography }
+    summary: A Biography drama incorporates dramatic elements into a biographical film. These films specifically chronicle the life of a person or a group of people.
+  Comedy:
+    template: { name: IMDb Genres, genre: comedy }
+    summary: Comedy is a genre of film that uses humor as a driving force. The aim of a comedy film is to illicit laughter from the audience through entertaining stories and characters.
+  Crime:
+    template: { name: IMDb Genres, genre: crime }
+    summary: Crime film is a genre that revolves around the action of a criminal mastermind. This genre tends to be fast paced with an air of mystery.
+  Documentary:
+    template: { name: IMDb Genres, genre: documentary }
+    imdb_search:
+      genres: documentary
+      release.after: 1990-01-01
+      rating.gte: 7
+      votes.gte: 50000
+      sort_by: rating.desc
+      limit: 100
+    summary: A collection of documentary movies from 1990 to now, with a minimum rating of 7 and at least 50000 votes from IMDb.
+  Drama:
+    template: { name: IMDb Genres, genre: drama }
+    summary: Drama film is a genre that relies on the emotional and relational development of realistic characters.
+  Fantasy:
+    template: { name: IMDb Genres, genre: fantasy }
+    summary: Fantasy film is a genre that incorporates imaginative and fantastic themes. These themes usually involve magic, supernatural events, or fantasy worlds.
+  Historical:
+    template: { name: IMDb Genres, genre: history }
+    summary: Historical is a sub-genre of Drama film that examines a specific time in history or group of people.
+  Horror:
+    template: { name: IMDb Genres, genre: horror }
+    summary: Horror film is a genre that aims to create a sense of fear, panic, alarm, and dread for the audience.
+  Mystery:
+    template: { name: IMDb Genres, genre: mystery }
+    summary: A Mystery/Suspense film centers on a person of authority, usually a detective, that is trying to solve a mysterious crime.
+  Romance:
+    template: { name: IMDb Genres, genre: romance }
+    summary: Romance film can be defined as a genre wherein the plot revolves around the love between two protagonists.
+  Romantic Comedy:
+    template: { name: IMDb Genres, genre: romance, comedy }
+    summary: Romantic-Comedy is a genre that attempts to catch the viewer's heart with the combination of love and humor.
+  Science Fiction:
+    template: { name: IMDb Genres, genre: sci-fi }
+    summary: Science Fiction film is a genre that incorporates hypothetical, science-based themes into the plot of the film.
+  Thriller:
+    template: { name: IMDb Genres, genre: thriller }
+    summary: Thriller Film is a genre that revolves around anticipation and suspense. The aim for Thrillers is to keep the audience alert and on the edge of their seats.
+  Western:
+    template: { name: IMDb Genres, genre: western }
+    summary: Western Film is a genre that revolves around stories primarily set in the late 19th century in the American Old West.
+
+  ############################
+  #      IMDB KEYWORDS       #
+  ############################
+
+  Superhero:
+    template: { name: IMDb Keywords, keyword: superhero }
+
+  ############################
+  #    STREAMING SERVICES    #
+  ############################
+
+  Apple TV+:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls084062897
+  Disney+:
+    template: { name: Streaming Services }
+    mdblist_list: https://mdblist.com/lists/awesomeaustn/disney-movies
+  HBO Max:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls084378296
+  Hulu:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls084378943
+  Netflix:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls084069524
+  Paramount+:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls574137821
+  Prime Video:
+    template: { name: Streaming Services }
+    imdb_list: https://www.imdb.com/list/ls084378896
+
+  ############################
+  #         STUDIOS          #
+  ############################
+
+  DC:
+    template: { name: Studios }
+    imdb_list:
+      - https://www.imdb.com/list/ls084123848
+      - https://www.imdb.com/list/ls084122077
+  Marvel:
+    template: { name: Studios }
+    imdb_list: https://www.imdb.com/list/ls084048577
+  Marvel Cinematic Universe:
+    template: { name: Studios }
+    imdb_list: https://www.imdb.com/list/ls084049253
+  Pixar:
+    template: { name: Studios }
+    imdb_list: https://www.imdb.com/list/ls084018331
+  Walt Disney Animation Studios:
+    template: { name: Studios }
+    imdb_list: https://www.imdb.com/list/ls579363081
+
+  ############################
+  #         HOLIDAYS         #
+  ############################
+
+  Christmas Movies:
+    template: { name: Holidays }
+    imdb_list: https://www.imdb.com/list/ls084064285
+    schedule: range(12/20-12/30)
+  Merry Christmas!:
+    sort_title: "ZZZ_<<collection_name>>"
+    smart_filter:
+      all:
+        collection: Christmas Movies
+      sort_by: random
+    collection_mode: hide
+    schedule: range(12/20-12/30)
+    delete_not_scheduled: true
+    visible_library: range(12/20-12/30)
+    visible_home: range(12/20-12/30)
+    visible_shared: range(12/20-12/30)
+  Halloween Movies:
+    template: { name: Holidays }
+    imdb_list: https://www.imdb.com/list/ls084064776
+    schedule: range(10/01-10/31)
+  Happy Halloween!:
+    sort_title: "ZZZ_<<collection_name>>"
+    smart_filter:
+      all:
+        collection: Halloween Movies
+      sort_by: random
+    collection_mode: hide
+    schedule: range(10/01-10/31)
+    delete_not_scheduled: true
+    visible_library: range(10/01-10/31)
+    visible_home: range(10/01-10/31)
+    visible_shared: range(10/01-10/31)
+  Happy Valentine's Day!:
+    sort_title: "ZZZ_<<collection_name>>"
+    smart_filter:
+      any:
+        collection:
+          - Romance
+          - Romantic Comedy
+      sort_by: random
+    collection_mode: hide
+    schedule: range(02/13-02/15)
+    delete_not_scheduled: true
+    visible_library: range(02/13-02/15)
+    visible_home: range(02/13-02/15)
+    visible_shared: range(02/13-02/15)
+  May the Fourth Be With You!:
+    sort_title: "ZZZ_<<collection_name>>"
+    smart_filter:
+      all:
+        collection: Star Wars
+      sort_by: random
+    collection_mode: hide
+    schedule: range(05/03-05/05)
+    delete_not_scheduled: true
+    visible_library: range(05/03-05/05)
+    visible_home: range(05/03-05/05)
+    visible_shared: range(05/03-05/05)
+
+  ############################
+  #          YEARS           #
+  ############################
+
+  2020 Movies:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2020
+  2021 Movies:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2021
+  2022 Movies:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2022
+
+  ############################
+  #          RANDOM          #
+  ############################
+
+  Random Movies:
+    sort_title: "!15_! Random Movies"
+    smart_filter:
+      all:
+        year.gte: 1980
+      sort_by: random
+      limit: 5
+    collection_mode: hide
+    summary: Random movies every time it loads.
+    visible_library: true
+    visible_home: true
+    visible_shared: true
+    schedule: never
+  Random Action:
+    template: { name: Random, genre: Action }
+  Random Comedy:
+    template: { name: Random, genre: Comedy }
+  Random Drama:
+    template: { name: Random, genre: Drama }
+  Random Horror:
+    template: { name: Random, genre: Horror }
+  Random Science Fiction:
+    template: { name: Random, genre: Science Fiction }
+  Random Thriller:
+    template: { name: Random, genre: Thriller }

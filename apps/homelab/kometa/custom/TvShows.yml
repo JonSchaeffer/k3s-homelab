@@ -1,0 +1,226 @@
+templates:
+  ############################
+  #        TEMPLATES         #
+  ############################
+
+  Charts:
+    sort_title: "!01_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    schedule: daily
+  Custom:
+    sort_title: "!06_<<collection_name>>"
+    sync_mode: sync
+    collection_order: alpha
+    collection_mode: hide
+    schedule: monthly(10)
+  Regular:
+    sort_title: "!07_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: monthly(10)
+  IMDb Genres:
+    default:
+      type: tv_series,mini_series
+      year_min: 1980
+      rating_min: 7
+      votes_min: 50000
+      limit: 100
+    imdb_search:
+      type: <<type>>
+      genre: <<genre>>
+      release.after: <<year_min>>-01-01
+      rating.gte: <<rating_min>>
+      votes.gte: <<votes_min>>
+      sort_by: rating.desc
+      limit: <<limit>>
+    sort_title: "!08_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    summary: A collection of <<genre>> shows from <<year_min>> to now, with a minimum rating of <<rating_min>> and at least <<votes_min>> votes from IMDb. Sorted by rating.
+    schedule: weekly(friday)
+  IMDb Keywords:
+    default:
+      type: tvSeries,tvMiniSeries
+      year_min: 1980
+      rating_min: 7
+      votes_min: 50000
+      limit: 100
+    imdb_search:
+      type: <<type>>
+      release.after: <<year_min>>-01-01
+      rating.gte: <<rating_min>>
+      votes.gte: <<votes_min>>
+      sort_by: rating.desc
+      limit: <<limit>>
+    sort_title: "!09_<<collection_name>>"
+    sync_mode: sync
+    collection_order: custom
+    collection_mode: hide
+    summary: A collection of <<keyword>> shows from <<year_min>> to now, with a minimum rating of <<rating_min>> and at least <<votes_min>> votes from IMDb. Sorted by rating.
+    schedule: weekly(friday)
+  Streaming Services:
+    sort_title: "!10_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: daily
+  Studios:
+    sort_title: "!11_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: daily
+  Years:
+    sort_title: "!13_<<collection_name>>"
+    sync_mode: sync
+    collection_order: release
+    collection_mode: hide
+    schedule: weekly(friday)
+
+############################
+#       COLLECTIONS        #
+############################
+
+collections:
+  ############################
+  #          CHARTS          #
+  ############################
+
+  IMDb Most Popular:
+    template: { name: Charts }
+    imdb_chart: popular_shows
+  IMDb Top 250:
+    template: { name: Charts }
+    imdb_search:
+      type: tv_series,tv_miniseries
+      votes.gte: 50000
+    limit: 250
+  TMDb Most Popular:
+    template: { name: Charts }
+    tmdb_popular: 30
+  TMDb Weekly Trending:
+    template: { name: Charts }
+    tmdb_trending_weekly: 30
+
+  ############################
+  #          CUSTOM          #
+  ############################
+
+  Nature Documentary:
+    template: { name: Custom }
+    tmdb_list: https://www.themoviedb.org/list/7087971
+
+  ############################
+  #         REGULAR          #
+  ############################
+
+  Star Trek:
+    template: { name: Regular }
+    tmdb_list: https://www.themoviedb.org/list/7071553
+  Star Wars (Animated):
+    template: { name: Regular }
+    tmdb_list: https://www.themoviedb.org/list/7091278
+  Star Wars (Live-action):
+    template: { name: Regular }
+    tmdb_list: https://www.themoviedb.org/list/8173369
+  Star Wars:
+    template: { name: Regular }
+    collection:
+      - Star Wars (Animated)
+      - Star Wars (Live-action)
+
+  ############################
+  #       IMDB GENRES        #
+  ############################
+
+  Animation:
+    template: { name: IMDb Genres, genre: animation }
+    summary: Animated film is a collection of illustrations that are photographed frame-by-frame and then played in a quick succession.
+  Comedy:
+    template: { name: IMDb Genres, genre: comedy }
+    summary: Comedy is a genre of film that uses humor as a driving force. The aim of a comedy film is to illicit laughter from the audience through entertaining stories and characters.
+  Drama:
+    template: { name: IMDb Genres, genre: drama }
+    summary: Drama film is a genre that relies on the emotional and relational development of realistic characters.
+  Fantasy:
+    template: { name: IMDb Genres, genre: fantasy }
+    summary: Fantasy film is a genre that incorporates imaginative and fantastic themes. These themes usually involve magic, supernatural events, or fantasy worlds.
+  Romantic Comedy:
+    template: { name: IMDb Genres, genre: romance, comedy }
+    summary: Romantic-Comedy is a genre that attempts to catch the viewer's heart with the combination of love and humor.
+  Science Fiction:
+    template: { name: IMDb Genres, genre: sci-fi }
+    summary: Science Fiction film is a genre that incorporates hypothetical, science-based themes into the plot of the film.
+
+  ############################
+  #      IMDB KEYWORDS       #
+  ############################
+
+  Superhero:
+    template: { name: IMDb Keywords, keyword: superhero }
+
+  ############################
+  #    STREAMING SERVICES    #
+  ############################
+
+  Apple TV+:
+    template: { name: Streaming Services }
+    tmdb_list: https://www.themoviedb.org/list/7071557
+  Disney+:
+    template: { name: Streaming Services }
+    tmdb_network: 2739
+  HBO Max:
+    template: { name: Streaming Services }
+    tmdb_network: 3186
+  Hulu:
+    template: { name: Streaming Services }
+    tmdb_network: 453
+  Netflix:
+    template: { name: Streaming Services }
+    tmdb_list: https://www.themoviedb.org/list/7107927
+  Paramount+:
+    template: { name: Streaming Services }
+    tmdb_network: 4330
+  Peacock:
+    template: { name: Streaming Services }
+    tmdb_network: 3353
+  Prime Video:
+    template: { name: Streaming Services }
+    tmdb_network: 1024
+
+  ############################
+  #         STUDIOS          #
+  ############################
+
+  DC:
+    template: { name: Studios }
+    tmdb_list:
+      - https://www.themoviedb.org/list/7071946
+      - https://www.themoviedb.org/list/8245986
+  Marvel:
+    template: { name: Studios }
+    tmdb_list: https://www.themoviedb.org/list/7071556
+
+  ############################
+  #          YEARS           #
+  ############################
+
+  2020 Shows:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2020
+  2021 Shows:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2021
+  2022 Shows:
+    template: { name: Years }
+    plex_search:
+      all:
+        year: 2022

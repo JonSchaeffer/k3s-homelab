@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  - ./pvc.yaml
+configMapGenerator:
+  - name: kometa-configmap
+    files:
+      - config.yml=./config/config.yml
+  - name: kometa-custom
+    files:
+      - Movies.yml=./custom/Movies.yml
+      - Movies-Trending.yml=./custom/Movies-Trending.yml
+      - TvShows.yml=./custom/TvShows.yml
+      - TvShows-Trending.yml=./custom/TvShows-Trending.yml
+generatorOptions:
+  disableNameSuffixHash: true
