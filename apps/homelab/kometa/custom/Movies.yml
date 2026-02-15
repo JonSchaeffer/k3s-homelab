@@ -201,24 +201,6 @@ collections:
       - https://www.imdb.com/list/ls068224634
       - https://www.imdb.com/list/ls009794682
       - https://www.imdb.com/list/ls059928685
-  Historical Black Movies:
-    template: { name: Custom }
-    imdb_list: https://www.imdb.com/list/ls560237349
-    schedule: range(02/01-02/28)
-    visible_home: range(02/01-02/28)
-    visible_shared: range(02/01-02/28)
-  Black History Month:
-    sort_title: "ZZZ_<<collection_name>>"
-    smart_filter:
-      all:
-        collection: Historical Black Movies
-      sort_by: random
-    collection_mode: hide
-    schedule: range(02/01-02/28)
-    delete_not_scheduled: true
-    visible_library: range(02/01-02/28)
-    visible_home: range(02/01-02/28)
-    visible_shared: range(02/01-02/28)
   Inspirational & Heart Warming:
     template: { name: Custom }
     imdb_list:
