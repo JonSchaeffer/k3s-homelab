@@ -84,6 +84,13 @@ spec:
         globalMounts:
           - path: /config/custom
             readOnly: true
+      media:
+        type: nfs
+        server: 192.168.0.147
+        path: /mnt/md0/media
+        globalMounts:
+          - path: /media
+            readOnly: true
       tmpfs:
         type: emptyDir
         advancedMounts:
