@@ -20,10 +20,14 @@ libraries:
         template_variables:
           rating1: critic
           rating1_image: rt_tomato
+          rating1_horizontal_align: right
           rating2: audience
           rating2_image: rt_popcorn
+          rating2_horizontal_align: right
           rating3: user
           rating3_image: imdb
+          rating3_horizontal_align: right
+          horizontal_position: right
       - default: streaming # Streaming service logos
       - default: resolution # 4K, 1080p, HDR, DV
     operations:
@@ -51,10 +55,14 @@ libraries:
         template_variables:
           rating1: critic
           rating1_image: rt_tomato
+          rating1_horizontal_align: right
           rating2: audience
           rating2_image: rt_popcorn
+          rating2_horizontal_align: right
           rating3: user
           rating3_image: imdb
+          rating3_horizontal_align: right
+          horizontal_position: right
       - default: streaming # Streaming service logos
       - default: resolution # 4K, 1080p, HDR, DV
     operations:
