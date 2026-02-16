@@ -17,5 +17,6 @@ configMapGenerator:
       - Movies-Trending.yml=./custom/Movies-Trending.yml
       - TvShows.yml=./custom/TvShows.yml
       - TvShows-Trending.yml=./custom/TvShows-Trending.yml
+      - Pre-rolls.yml=./config/Pre-rolls.yml
 generatorOptions:
   disableNameSuffixHash: true

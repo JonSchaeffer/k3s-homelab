@@ -1,127 +1,88 @@
 ---
 collections:
   ############################
-  #          MONTHS          #
+  #         RANDOM           #
   ############################
 
-  Regular:
+  Random:
     build_collection: false
-    server_preroll: /data/prerolls/Regular/Piracy by Netflix.mp4;/data/prerolls/Regular/Netflix Love is Sharing.mp4;/data/prerolls/Regular/Netflix Colorful Lines Plex Pre-roll.mp4
+    server_preroll: >-
+      /media/PreRolls/Random/80s VHS Synthwave Plex.mp4;
+      /media/PreRolls/Random/Fallout 01 Plex Pre-Roll (1080p).mp4;
+      /media/PreRolls/Random/Filmation_Plex.mp4;
+      /media/PreRolls/Random/Great Scott! - Plex.mp4;
+      /media/PreRolls/Random/Jurassic Park Plex.mp4;
+      /media/PreRolls/Random/Lobby Plex.mp4;
+      /media/PreRolls/Random/Neon Glitch Plex_4K.mp4;
+      /media/PreRolls/Random/Outrun Plex.mp4;
+      /media/PreRolls/Random/PLEXAR_Final.mp4;
+      /media/PreRolls/Random/PleXP.mp4;
+      /media/PreRolls/Random/Software Technology Logo Plex_4K.mp4;
+      /media/PreRolls/Random/Spray Paint Plex.mp4;
+      /media/PreRolls/Random/Star Trails Plex.mp4;
+      /media/PreRolls/Random/Star Wars Hyperspace Logo Plex_4K.mp4;
+      /media/PreRolls/Random/Sunset Painting Plex_4K.mp4;
+      /media/PreRolls/Random/Synth_Dream_Plex.mp4;
+      /media/PreRolls/Random/The Matrix Plex.mp4;
+      /media/PreRolls/Random/Toy Story_Plex.mp4;
+      /media/PreRolls/Random/TRON Plex.mp4;
+      /media/PreRolls/Random/Tunnel Plex Red.mp4;
+      /media/PreRolls/Random/VHS Home Theater Plex V3.mp4
+      /media/PreRolls/Random/WrongLever.mp4
     schedule:
-      - range(01/01-01/31) # January
-      - range(03/01-03/31) # March
-      - range(04/01-04/30) # April
-      - range(05/01-05/31) # May
-      - range(07/01-07/31) # July
-      - range(08/01-08/31) # August
-      - range(09/01-09/30) # September
-      - range(11/01-11/30) # November
-      - range(12/01-12/31) # December
-
-  Black History:
-    build_collection: false
-    server_preroll: /data/prerolls/Black History/Black History Plex Pre-roll.mp4
-    schedule: range(02/01-02/28) # February
-
-  Pride:
-    build_collection: false
-    server_preroll: /data/prerolls/Pride/Netflix Pride Colors Pre-roll.mp4
-    schedule: range(06/01-06/30) # June
-
-  Halloween:
-    build_collection: false
-    server_preroll: /data/prerolls/Halloween/Halloween Pack V01 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V02 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V03 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V04 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V05 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V06 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V07 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V08 Plex Pre-roll.mp4;/data/prerolls/Halloween/Halloween Pack V09 Plex Pre-roll.mp4
-    schedule: range(10/01-10/31) # October
+      - range(01/03-09/30)
+      - range(11/01-11/30)
+      - range(12/29-12/30)
 
   ############################
-  #         SPECIALS         #                                            # https://www.timeanddate.com/holidays/fun
+  #        HOLIDAYS          #
   ############################
-
-  Valentine's Day:
-    build_collection: false
-    server_preroll: /data/prerolls/Valentines/Valentine's Day Flowers Plex Pre-roll.mp4; /data/prerolls/Valentines/Valentine's Day Hearts Plex Pre-roll.mp4
-    schedule: yearly(02/14) # This changes yearly
-
-  Easter:
-    build_collection: false
-    server_preroll: /data/prerolls/Easter/Happy Easter Plex Pre-roll.mp4
-    schedule: yearly(04/09) # This changes yearly
-
-  Thanksgiving:
-    build_collection: false
-    server_preroll: /data/prerolls/Thanksgiving/Happy Thanksgiving Plex Pre-roll.mp4
-    schedule: yearly(10/09) # This changes yearly
 
   Christmas:
     build_collection: false
-    server_preroll: /data/prerolls/Christmas/Magic Christmas Tree Plex Pre-roll.mp4
-    schedule: range(12/20-12/25)
+    server_preroll: >-
+      /media/PreRolls/Holidays/Christmas/Christmas Card - Plex - Old Logo.mp4;
+      /media/PreRolls/Holidays/Christmas/Christmas Train Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Christmas_Lights_Plex_Pre-roll.mp4;
+      /media/PreRolls/Holidays/Christmas/Christmas_Paper_Town_Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Christmas_Train_Plex_Pre-roll.mp4;
+      /media/PreRolls/Holidays/Christmas/Christmas_Tree_Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Magic Christmas Tree - Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Magical_Reindeer_Plex_Pre-roll.mp4;
+      /media/PreRolls/Holidays/Christmas/Merry Christmas - Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Snow Globe - Plex.mp4;
+      /media/PreRolls/Holidays/Christmas/Snowflakes - Plex.mp4
+    schedule: range(12/01-12/28)
+
+  Halloween:
+    build_collection: false
+    server_preroll: >-
+      /media/PreRolls/Holidays/Halloween/Candy.mp4;
+      /media/PreRolls/Holidays/Halloween/Energy Monster Plex.mp4;
+      /media/PreRolls/Holidays/Halloween/Funny Ghost Version 05 Plex.mp4;
+      /media/PreRolls/Holidays/Halloween/Halloween Bats - Plex.mp4;
+      /media/PreRolls/Holidays/Halloween/Halloween Glitch Plex.mp4;
+      /media/PreRolls/Holidays/Halloween/Halloween Moon Plex.mp4;
+      /media/PreRolls/Holidays/Halloween/Halloween_Spider_Plex_Pre-roll.mp4;
+      /media/PreRolls/Holidays/Halloween/Happy Halloween - Plex - Old Logo.mp4;
+      /media/PreRolls/Holidays/Halloween/Spooky_Halloween_Plex_Pre-roll.mp4
+    schedule: range(10/01-10/31)
 
   New Years:
     build_collection: false
-    server_preroll: /data/prerolls/New Years/New Years Fireworks Plex Pre-roll.mp4
-    schedule: range(12/31-01/07)
+    server_preroll: /media/PreRolls/Holidays/New Year/New Year Fireworks Plex.mp4
+    schedule: range(12/31-01/02)
 
   ############################
-  #    ADDITIONAL IDEAS      #                                            # Uncomment and add video paths when ready
+  #    NEEDS PRE-ROLLS       #
   ############################
 
-  # St. Patrick's Day:
+  # Valentine's Day:
   #   build_collection: false
-  #   server_preroll: /data/prerolls/St Patricks/TODO.mp4
-  #   schedule: yearly(03/17)
+  #   server_preroll: /media/PreRolls/Holidays/Valentine's Day/TODO.mp4
+  #   schedule: yearly(02/14)
 
-  # April Fools:
+  # Thanksgiving:
   #   build_collection: false
-  #   server_preroll: /data/prerolls/April Fools/TODO.mp4
-  #   schedule: yearly(04/01)
-
-  # Cinco de Mayo:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Cinco de Mayo/TODO.mp4
-  #   schedule: yearly(05/05)
-
-  # Star Wars Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Star Wars/TODO.mp4
-  #   schedule: yearly(05/04)
-
-  # Mother's Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Mothers Day/TODO.mp4
-  #   schedule: yearly(05/11) # 2nd Sunday in May - update yearly
-
-  # Memorial Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Memorial Day/TODO.mp4
-  #   schedule: yearly(05/26) # Last Monday in May - update yearly
-
-  # Father's Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Fathers Day/TODO.mp4
-  #   schedule: yearly(06/15) # 3rd Sunday in June - update yearly
-
-  # Independence Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/4th of July/TODO.mp4
-  #   schedule: range(07/01-07/04)
-
-  # Back to School:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Back to School/TODO.mp4
-  #   schedule: range(08/15-09/07)
-
-  # Labor Day:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Labor Day/TODO.mp4
-  #   schedule: yearly(09/01) # 1st Monday in September - update yearly
-
-  # Awards Season:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Awards Season/TODO.mp4
-  #   schedule: range(02/15-03/15)
-
-  # Summer:
-  #   build_collection: false
-  #   server_preroll: /data/prerolls/Summer/TODO.mp4
-  #   schedule: range(06/21-09/22)
+  #   server_preroll: /media/PreRolls/Holidays/Thanksgiving/TODO.mp4
+  #   schedule: range(11/25-11/30)

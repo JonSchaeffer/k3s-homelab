@@ -9,6 +9,7 @@ libraries:
     collection_files:
       - file: /config/custom/Movies-Trending.yml
       - file: /config/custom/Movies.yml
+      - file: /config/custom/Pre-rolls.yml
       - repo: Movies - Holidays by Drazzizzi.yml
       - default: basic
       - default: imdb
