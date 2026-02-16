@@ -59,6 +59,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
+        controller: maintainerr
         ports:
           http:
             port: &port 6246
