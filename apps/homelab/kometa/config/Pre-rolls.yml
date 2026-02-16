@@ -6,29 +6,7 @@ collections:
 
   Random:
     build_collection: false
-    server_preroll: >-
-      /media/PreRolls/Random/80s VHS Synthwave Plex.mp4;
-      /media/PreRolls/Random/Fallout 01 Plex Pre-Roll (1080p).mp4;
-      /media/PreRolls/Random/Filmation_Plex.mp4;
-      /media/PreRolls/Random/Great Scott! - Plex.mp4;
-      /media/PreRolls/Random/Jurassic Park Plex.mp4;
-      /media/PreRolls/Random/Lobby Plex.mp4;
-      /media/PreRolls/Random/Neon Glitch Plex_4K.mp4;
-      /media/PreRolls/Random/Outrun Plex.mp4;
-      /media/PreRolls/Random/PLEXAR_Final.mp4;
-      /media/PreRolls/Random/PleXP.mp4;
-      /media/PreRolls/Random/Software Technology Logo Plex_4K.mp4;
-      /media/PreRolls/Random/Spray Paint Plex.mp4;
-      /media/PreRolls/Random/Star Trails Plex.mp4;
-      /media/PreRolls/Random/Star Wars Hyperspace Logo Plex_4K.mp4;
-      /media/PreRolls/Random/Sunset Painting Plex_4K.mp4;
-      /media/PreRolls/Random/Synth_Dream_Plex.mp4;
-      /media/PreRolls/Random/The Matrix Plex.mp4;
-      /media/PreRolls/Random/Toy Story_Plex.mp4;
-      /media/PreRolls/Random/TRON Plex.mp4;
-      /media/PreRolls/Random/Tunnel Plex Red.mp4;
-      /media/PreRolls/Random/VHS Home Theater Plex V3.mp4
-      /media/PreRolls/Random/WrongLever.mp4
+    server_preroll: "/media/PreRolls/Random/80s VHS Synthwave Plex.mp4;/media/PreRolls/Random/Fallout 01 Plex Pre-Roll (1080p).mp4;/media/PreRolls/Random/Filmation_Plex.mp4;/media/PreRolls/Random/Great Scott! - Plex.mp4;/media/PreRolls/Random/Jurassic Park Plex.mp4;/media/PreRolls/Random/Lobby Plex.mp4;/media/PreRolls/Random/Neon Glitch Plex_4K.mp4;/media/PreRolls/Random/Outrun Plex.mp4;/media/PreRolls/Random/PLEXAR_Final.mp4;/media/PreRolls/Random/PleXP.mp4;/media/PreRolls/Random/Software Technology Logo Plex_4K.mp4;/media/PreRolls/Random/Spray Paint Plex.mp4;/media/PreRolls/Random/Star Trails Plex.mp4;/media/PreRolls/Random/Star Wars Hyperspace Logo Plex_4K.mp4;/media/PreRolls/Random/Sunset Painting Plex_4K.mp4;/media/PreRolls/Random/Synth_Dream_Plex.mp4;/media/PreRolls/Random/The Matrix Plex.mp4;/media/PreRolls/Random/Toy Story_Plex.mp4;/media/PreRolls/Random/TRON Plex.mp4;/media/PreRolls/Random/Tunnel Plex Red.mp4;/media/PreRolls/Random/VHS Home Theater Plex V3.mp4;/media/PreRolls/Random/WrongLever.mp4"
     schedule:
       - range(01/03-09/30)
       - range(11/01-11/30)
@@ -40,37 +18,17 @@ collections:
 
   Christmas:
     build_collection: false
-    server_preroll: >-
-      /media/PreRolls/Holidays/Christmas/Christmas Card - Plex - Old Logo.mp4;
-      /media/PreRolls/Holidays/Christmas/Christmas Train Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Christmas_Lights_Plex_Pre-roll.mp4;
-      /media/PreRolls/Holidays/Christmas/Christmas_Paper_Town_Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Christmas_Train_Plex_Pre-roll.mp4;
-      /media/PreRolls/Holidays/Christmas/Christmas_Tree_Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Magic Christmas Tree - Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Magical_Reindeer_Plex_Pre-roll.mp4;
-      /media/PreRolls/Holidays/Christmas/Merry Christmas - Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Snow Globe - Plex.mp4;
-      /media/PreRolls/Holidays/Christmas/Snowflakes - Plex.mp4
+    server_preroll: "/media/PreRolls/Holidays/Christmas/Christmas Card - Plex - Old Logo.mp4;/media/PreRolls/Holidays/Christmas/Christmas Train Plex.mp4;/media/PreRolls/Holidays/Christmas/Christmas_Lights_Plex_Pre-roll.mp4;/media/PreRolls/Holidays/Christmas/Christmas_Paper_Town_Plex.mp4;/media/PreRolls/Holidays/Christmas/Christmas_Train_Plex_Pre-roll.mp4;/media/PreRolls/Holidays/Christmas/Christmas_Tree_Plex.mp4;/media/PreRolls/Holidays/Christmas/Magic Christmas Tree - Plex.mp4;/media/PreRolls/Holidays/Christmas/Magical_Reindeer_Plex_Pre-roll.mp4;/media/PreRolls/Holidays/Christmas/Merry Christmas - Plex.mp4;/media/PreRolls/Holidays/Christmas/Snow Globe - Plex.mp4;/media/PreRolls/Holidays/Christmas/Snowflakes - Plex.mp4"
     schedule: range(12/01-12/28)
 
   Halloween:
     build_collection: false
-    server_preroll: >-
-      /media/PreRolls/Holidays/Halloween/Candy.mp4;
-      /media/PreRolls/Holidays/Halloween/Energy Monster Plex.mp4;
-      /media/PreRolls/Holidays/Halloween/Funny Ghost Version 05 Plex.mp4;
-      /media/PreRolls/Holidays/Halloween/Halloween Bats - Plex.mp4;
-      /media/PreRolls/Holidays/Halloween/Halloween Glitch Plex.mp4;
-      /media/PreRolls/Holidays/Halloween/Halloween Moon Plex.mp4;
-      /media/PreRolls/Holidays/Halloween/Halloween_Spider_Plex_Pre-roll.mp4;
-      /media/PreRolls/Holidays/Halloween/Happy Halloween - Plex - Old Logo.mp4;
-      /media/PreRolls/Holidays/Halloween/Spooky_Halloween_Plex_Pre-roll.mp4
+    server_preroll: "/media/PreRolls/Holidays/Halloween/Candy.mp4;/media/PreRolls/Holidays/Halloween/Energy Monster Plex.mp4;/media/PreRolls/Holidays/Halloween/Funny Ghost Version 05 Plex.mp4;/media/PreRolls/Holidays/Halloween/Halloween Bats - Plex.mp4;/media/PreRolls/Holidays/Halloween/Halloween Glitch Plex.mp4;/media/PreRolls/Holidays/Halloween/Halloween Moon Plex.mp4;/media/PreRolls/Holidays/Halloween/Halloween_Spider_Plex_Pre-roll.mp4;/media/PreRolls/Holidays/Halloween/Happy Halloween - Plex - Old Logo.mp4;/media/PreRolls/Holidays/Halloween/Spooky_Halloween_Plex_Pre-roll.mp4"
     schedule: range(10/01-10/31)
 
   New Years:
     build_collection: false
-    server_preroll: /media/PreRolls/Holidays/New Year/New Year Fireworks Plex.mp4
+    server_preroll: "/media/PreRolls/Holidays/New Year/New Year Fireworks Plex.mp4"
     schedule: range(12/31-01/02)
 
   ############################
