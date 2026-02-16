@@ -15,12 +15,17 @@ libraries:
       - default: imdb
     overlay_files:
       - remove_overlays: false
-      - default: ribbon          # IMDb Top 250, RT Certified Fresh
-      - default: ratings         # IMDb, RT, TMDb ratings
-      - default: streaming       # Streaming service logos
-      - default: studio          # Studio logos
-      - default: resolution      # 4K, 1080p, HDR, DV
-      - default: mediastinger    # Post/mid-credits scene badge
+      - default: ribbon # IMDb Top 250, RT Certified Fresh
+      - default: ratings
+        template_variables:
+          rating1: critic
+          rating1_image: rt_tomato
+          rating2: audience
+          rating2_image: rt_popcorn
+          rating3: user
+          rating3_image: imdb
+      - default: streaming # Streaming service logos
+      - default: resolution # 4K, 1080p, HDR, DV
     operations:
       mass_genre_update: imdb
       mass_content_rating_update: omdb
@@ -41,13 +46,17 @@ libraries:
       - default: imdb
     overlay_files:
       - remove_overlays: false
-      - default: ribbon          # IMDb Top 250, RT Certified Fresh
-      - default: ratings         # IMDb, RT, TMDb ratings
-      - default: streaming       # Streaming service logos
-      - default: network         # Network logos (HBO, ABC, etc.)
-      - default: studio          # Studio logos
-      - default: status          # Returning, Ended, Canceled
-      - default: resolution      # 4K, 1080p, HDR, DV
+      - default: ribbon # IMDb Top 250, RT Certified Fresh
+      - default: ratings
+        template_variables:
+          rating1: critic
+          rating1_image: rt_tomato
+          rating2: audience
+          rating2_image: rt_popcorn
+          rating3: user
+          rating3_image: imdb
+      - default: streaming # Streaming service logos
+      - default: resolution # 4K, 1080p, HDR, DV
     operations:
       mass_genre_update: tmdb
       mass_content_rating_update: omdb
