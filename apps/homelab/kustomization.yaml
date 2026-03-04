@@ -11,6 +11,7 @@ resources:
   - ./homeassistant
   - ./karakeep
   - ./kometa
+  - ./loop
   - ./overseer
   - ./paperless-ngx
   - ./pihole
