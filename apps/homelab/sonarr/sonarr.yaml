@@ -41,7 +41,7 @@ spec:
               TZ: America/New_York
             image:
               repository: ghcr.io/home-operations/sonarr
-              tag: 4.0.17.2950
+              tag: 4.0.17.2953
             probes:
               liveness:
                 enabled: true
