@@ -65,11 +65,7 @@ spec:
             image:
               repository: ghcr.io/jonschaeffer/tinacms-backend
               tag: latest
-            command:
-              - npx
-              - tinacms
-              - dev
-              - "--noWatch"
+            # Default CMD from Dockerfile handles socat proxy
             workingDir: /data/repo
             resources:
               requests:
@@ -123,7 +119,7 @@ spec:
         controller: tinacms
         ports:
           http:
-            port: &port 4001
+            port: &port 4002
 
     ingress:
       app:
