@@ -30,10 +30,11 @@ spec:
               - sh
               - -c
               - |
-                git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git /tmp/repo
-                cp -a /tmp/repo/content/en/* /data/content/en/
-                cp -a /tmp/repo/.git /data/git-repo/
-                cp -a /tmp/repo/content /data/git-repo/
+                if [ ! -d /data/repo/.git ]; then
+                  git clone https://${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git /data/repo
+                else
+                  cd /data/repo && git pull origin main
+                fi
             env:
               GITHUB_TOKEN:
                 valueFrom:
@@ -50,11 +51,29 @@ spec:
                   secretKeyRef:
                     name: tinacms-secret
                     key: GITHUB_REPO
+          npm-install:
+            image:
+              repository: node
+              tag: 22-alpine
+            command:
+              - sh
+              - -c
+              - |
+                cd /data/repo && npm ci
+            resources:
+              limits:
+                memory: 1Gi
         containers:
           app:
             image:
               repository: ghcr.io/jonschaeffer/tinacms-backend
               tag: latest
+            command:
+              - npx
+              - tinacms
+              - dev
+              - "--noWatch"
+            workingDir: /data/repo
             resources:
               requests:
                 cpu: 10m
@@ -68,17 +87,17 @@ spec:
               - sh
               - -c
               - |
-                cd /data/git-repo
+                cd /data/repo
                 git config user.email "tinacms@jonschaeffer.dev"
                 git config user.name "TinaCMS"
                 while true; do
                   sleep 60
-                  cp -a /data/content/en/* content/en/
-                  if [ -n "$(git status --porcelain)" ]; then
-                    git add -A
-                    git commit -m "Content update via TinaCMS"
-                    git push https://${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git main
+                  if git diff --quiet content/ && git diff --cached --quiet content/; then
+                    continue
                   fi
+                  git add content/
+                  git commit -m "Content update via TinaCMS"
+                  git push https://${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${GITHUB_REPO}.git main
                 done
             env:
               GITHUB_TOKEN:
@@ -123,21 +142,15 @@ spec:
             - *app
 
     persistence:
-      content:
+      repo:
         type: emptyDir
         advancedMounts:
           tinacms:
             git-clone:
-              - path: /data/content
+              - path: /data/repo
+            npm-install:
+              - path: /data/repo
             app:
-              - path: /app/content
+              - path: /data/repo
             git-sync:
-              - path: /data/content
-      git-repo:
-        type: emptyDir
-        advancedMounts:
-          tinacms:
-            git-clone:
-              - path: /data/git-repo
-            git-sync:
-              - path: /data/git-repo
+              - path: /data/repo
