@@ -62,7 +62,7 @@ spec:
                 cd /data/repo && npm ci
             resources:
               limits:
-                memory: 1Gi
+                memory: 2Gi
         containers:
           app:
             image:
@@ -78,7 +78,7 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 512Mi
+                memory: 1Gi
           git-sync:
             image:
               repository: alpine/git
