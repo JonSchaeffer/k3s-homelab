@@ -54,7 +54,7 @@ spec:
           npm-install:
             image:
               repository: node
-              tag: 22-alpine
+              tag: 24-alpine
             command:
               - sh
               - -c
