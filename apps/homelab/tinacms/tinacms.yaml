@@ -51,18 +51,15 @@ spec:
                   secretKeyRef:
                     name: tinacms-secret
                     key: GITHUB_REPO
-          npm-install:
+          setup:
             image:
-              repository: node
-              tag: 22-alpine
+              repository: ghcr.io/jonschaeffer/tinacms-backend
+              tag: latest
             command:
               - sh
               - -c
               - |
-                cd /data/repo && npm ci
-            resources:
-              limits:
-                memory: 2Gi
+                ln -sf /app/node_modules /data/repo/node_modules
         containers:
           app:
             image:
@@ -148,7 +145,7 @@ spec:
           tinacms:
             git-clone:
               - path: /data/repo
-            npm-install:
+            setup:
               - path: /data/repo
             app:
               - path: /data/repo
