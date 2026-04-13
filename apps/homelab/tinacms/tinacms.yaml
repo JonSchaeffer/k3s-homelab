@@ -65,10 +65,9 @@ spec:
             image:
               repository: ghcr.io/jonschaeffer/tinacms-backend
               tag: latest
-            # Default CMD from Dockerfile handles socat proxy (localhost:4001 -> 0.0.0.0:4002)
             workingDir: /data/repo
             ports:
-              - containerPort: 4002
+              - containerPort: 4001
             resources:
               requests:
                 cpu: 10m
@@ -121,7 +120,7 @@ spec:
         controller: tinacms
         ports:
           http:
-            port: &port 4002
+            port: &port 4001
 
     ingress:
       app:
