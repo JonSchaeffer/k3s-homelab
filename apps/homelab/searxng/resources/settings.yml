@@ -2,6 +2,7 @@
 use_default_settings: true
 
 server:
+  secret_key: "ultrasecretkey" # replaced at startup by entrypoint with $SEARXNG_SECRET_KEY
   limiter: true
   image_proxy: true
   method: GET # https://github.com/searxng/searxng/pull/3619
