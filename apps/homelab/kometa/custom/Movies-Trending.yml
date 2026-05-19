@@ -1,9 +1,6 @@
 collections:
   Trending Movies:
-    trakt_chart:
-      chart: trending
-      country: us
-      limit: 20
+    tmdb_trending_daily: 20
     sort_title: "!00_Trending Movies"
     sync_mode: sync
     collection_order: custom
@@ -14,4 +11,4 @@ collections:
     radarr_search: true
     radarr_tag: kometa-trending
     schedule: daily
-    summary: "The top 20 movies trending right now in the US, powered by Trakt."
+    summary: "The top 20 movies trending today, powered by TMDb."

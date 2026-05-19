@@ -1,9 +1,6 @@
 collections:
   Trending TV Shows:
-    trakt_chart:
-      chart: trending
-      country: us
-      limit: 10
+    tmdb_trending_daily: 20
     sort_title: "!00_Trending TV Shows"
     sync_mode: sync
     collection_order: custom
@@ -14,4 +11,4 @@ collections:
     sonarr_search: true
     sonarr_tag: kometa-trending
     schedule: daily
-    summary: "The top 20 TV shows trending right now in the US, powered by Trakt."
+    summary: "The top 20 TV shows trending today, powered by TMDb."
