@@ -28,6 +28,21 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          copy-config:
+            image:
+              repository: docker.io/library/busybox
+              tag: "1.37"
+            command:
+              - sh
+              - -c
+              - cp /config-src/settings.yml /etc/searxng/settings.yml && cp /config-src/limiter.toml /etc/searxng/limiter.toml
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
         containers:
           main:
             image:
@@ -129,17 +144,24 @@ spec:
               - search
 
     persistence:
-      config:
+      config-src:
         enabled: true
         type: configMap
         name: searxng-configmap
-        globalMounts:
-          - path: /etc/searxng/settings.yml
-            subPath: settings.yml
-            readOnly: true
-          - path: /etc/searxng/limiter.toml
-            subPath: limiter.toml
-            readOnly: true
+        advancedMounts:
+          searxng:
+            copy-config:
+              - path: /config-src
+                readOnly: true
+      config:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          searxng:
+            copy-config:
+              - path: /etc/searxng
+            main:
+              - path: /etc/searxng
       tmpfs:
         enabled: true
         type: emptyDir
