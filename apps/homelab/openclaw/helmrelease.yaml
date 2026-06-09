@@ -21,6 +21,8 @@ spec:
   values:
     controllers:
       openclaw:
+        serviceAccount:
+          name: openclaw
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -107,9 +109,6 @@ spec:
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-
-    defaultPodOptions:
-      serviceAccountName: openclaw
 
     service:
       app:
