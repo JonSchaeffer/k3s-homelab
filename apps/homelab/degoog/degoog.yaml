@@ -36,9 +36,9 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              runAsUser: 1000
-              runAsGroup: 1000
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                add: ["CHOWN", "SETUID", "SETGID"]
+                drop: ["ALL"]
             resources:
               requests:
                 cpu: 10m
