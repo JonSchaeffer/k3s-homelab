@@ -33,6 +33,13 @@ data:
         ]
       },
       "cron": { "enabled": false },
+      "plugins": {
+        "entries": {
+          "discord": {
+            "enabled": true
+          }
+        }
+      },
       "channels": {
         "discord": {
           "enabled": true,
@@ -40,6 +47,23 @@ data:
             "source": "env",
             "provider": "default",
             "id": "DISCORD_BOT_TOKEN"
+          },
+          "groupPolicy": "allowlist",
+          "allowFrom": ["134033064593588224"],
+          "dmPolicy": "allowlist",
+          "status": "online",
+          "activity": "your DMs",
+          "activityType": 2,
+          "guilds": {
+            "134033291471749120": {
+              "slug": "vyrtl",
+              "users": ["134033064593588224"],
+              "channels": {
+                "1513892143457112164": {
+                  "enabled": true
+                }
+              }
+            }
           }
         }
       }
