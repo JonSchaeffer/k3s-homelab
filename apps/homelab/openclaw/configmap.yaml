@@ -7,22 +7,32 @@ data:
   openclaw.json: |
     {
       "gateway": {
-        "bind": "lan",
         "mode": "local",
+        "bind": "lan",
+        "port": 18789,
         "auth": {
           "mode": "token"
+        },
+        "controlUi": {
+          "enabled": true
         }
-      },
-      "controlUi": {
-        "enabled": true
       },
       "agents": {
         "defaults": {
+          "workspace": "~/.openclaw/workspace",
           "model": {
             "primary": "opencode-go/kimi-k2.6"
           }
-        }
+        },
+        "list": [
+          {
+            "id": "default",
+            "name": "OpenClaw Assistant",
+            "workspace": "~/.openclaw/workspace"
+          }
+        ]
       },
+      "cron": { "enabled": false },
       "channels": {
         "discord": {
           "enabled": true,
@@ -30,13 +40,6 @@ data:
             "source": "env",
             "provider": "default",
             "id": "DISCORD_BOT_TOKEN"
-          },
-          "dmPolicy": "pairing",
-          "guilds": {
-            "134033291471749120": {
-              "requireMention": false,
-              "users": ["134033064593588224"]
-            }
           }
         }
       }
