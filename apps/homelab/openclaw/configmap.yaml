@@ -7,7 +7,7 @@ data:
   openclaw.json: |
     {
       "gateway": {
-        "bind": "0.0.0.0:18789",
+        "bind": "lan",
         "mode": "local",
         "auth": {
           "mode": "token"
