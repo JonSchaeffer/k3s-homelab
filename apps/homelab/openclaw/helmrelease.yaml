@@ -21,6 +21,8 @@ spec:
   values:
     controllers:
       openclaw:
+        serviceAccount:
+          name: openclaw
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
@@ -67,6 +69,16 @@ spec:
                   secretKeyRef:
                     name: openclaw-secret
                     key: OPENCLAW_GATEWAY_TOKEN
+              GITHUB_APP_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secret
+                    key: GITHUB_APP_ID
+              GITHUB_APP_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: openclaw-secret
+                    key: GITHUB_APP_KEY
             probes:
               liveness:
                 enabled: true
@@ -96,7 +108,6 @@ spec:
               limits:
                 memory: 1Gi
         pod:
-          serviceAccountName: openclaw
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000

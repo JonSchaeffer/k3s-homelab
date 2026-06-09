@@ -25,7 +25,6 @@ resources:
   # - ./reader  # Commented out - enable when ready
   - ./sabnzbd
   - ./scrypted
-  - ./searxng
   - ./sonarr
   - ./speedtest-tracker
   - ./stirling-pdf
