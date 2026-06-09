@@ -33,6 +33,11 @@ spec:
               DEGOOG_PORT: &port 4444
               DEGOOG_DISTRUST_PROXY: "0"
               DEGOOG_PUBLIC_INSTANCE: "true"
+              DEGOOG_SETTINGS_PASSWORDS:
+                valueFrom:
+                  secretKeyRef:
+                    name: degoog-secret
+                    key: DEGOOG_SETTINGS_PASSWORDS
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
