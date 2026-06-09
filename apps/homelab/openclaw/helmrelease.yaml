@@ -69,11 +69,6 @@ spec:
                   secretKeyRef:
                     name: openclaw-secret
                     key: OPENCLAW_GATEWAY_TOKEN
-              GITHUB_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: openclaw-secret
-                    key: GITHUB_TOKEN
               GITHUB_APP_ID:
                 valueFrom:
                   secretKeyRef:
