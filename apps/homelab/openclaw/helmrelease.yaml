@@ -101,13 +101,15 @@ spec:
               limits:
                 memory: 1Gi
         pod:
-          serviceAccountName: openclaw
           securityContext:
             runAsUser: 1000
             runAsGroup: 1000
             runAsNonRoot: true
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
+
+    defaultPodOptions:
+      serviceAccountName: openclaw
 
     service:
       app:
