@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: homelab
 resources:
   - ./degoog.yaml
+  - ./externalsecret.yaml
