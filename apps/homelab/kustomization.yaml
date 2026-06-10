@@ -12,6 +12,7 @@ resources:
   - ./karakeep
   - ./kometa
   - ./loop
+  - ./ntfy
   - ./openclaw
   - ./overseer
   - ./paperless-ngx
