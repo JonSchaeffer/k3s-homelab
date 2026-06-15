@@ -26,6 +26,8 @@ spec:
             image:
               repository: binwiederhier/ntfy
               tag: v2.24.0@sha256:f8a9b104313b87cc24ae4f775f39e6328205b57dff6ede3eaf098a91e5d79f59
+            args:
+              - serve
             env:
               TZ: America/New_York
               NTFY_LOG_LEVEL: info
