@@ -9,6 +9,7 @@ resources:
   - ./freshrss
   - ./glance
   - ./homeassistant
+  - ./jellyfin
   - ./karakeep
   - ./kometa
   - ./loop
