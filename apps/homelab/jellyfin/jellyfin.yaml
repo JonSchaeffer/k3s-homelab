@@ -27,7 +27,7 @@ spec:
           app:
             image:
               repository: jellyfin/jellyfin
-              tag: 10.10.6@sha256:37e3a89ea64c99a2dc25db675c6ca7ef4ac076b41d2824042bdc4f69daff7185
+              tag: "10.10.6"
             env:
               TZ: America/New_York
               # Jellyfin data paths
