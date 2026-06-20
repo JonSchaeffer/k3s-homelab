@@ -5,14 +5,13 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
   - ./bazarr
+  - ./degoog
+  - ./dispatcharr
   - ./esphome
-  - ./freshrss
-  - ./glance
   - ./homeassistant
   - ./jellyfin
-  - ./karakeep
   - ./kometa
-  - ./loop
+  - ./maintainerr
   - ./ntfy
   - ./openclaw
   - ./overseer
@@ -23,13 +22,8 @@ resources:
   - ./qbittorrent
   - ./radarr
   - ./radarr-uhd
-  - ./readarr
-  # - ./reader  # Commented out - enable when ready
   - ./sabnzbd
   - ./scrypted
-  - ./degoog
   - ./sonarr
-  - ./speedtest-tracker
   - ./stirling-pdf
   - ./tautulli
-  - ./teamarr
