@@ -70,6 +70,14 @@ spec:
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
     defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: gpu.intel.com/device-id.0300-1912.present
+                    operator: In
+                    values: ["true"]
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
