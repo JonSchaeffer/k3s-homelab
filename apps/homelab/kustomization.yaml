@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
   - ./bazarr
+  - ./channels-dvr
   - ./degoog
   - ./dispatcharr
   - ./esphome
