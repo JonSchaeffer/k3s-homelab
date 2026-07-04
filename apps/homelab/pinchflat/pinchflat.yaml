@@ -94,6 +94,6 @@ spec:
       media:
         type: nfs
         server: 192.168.0.147
-        path: /mnt/md0/media/youtube
+        path: /mnt/md0/media
         globalMounts:
           - path: /downloads
