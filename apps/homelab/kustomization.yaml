@@ -16,6 +16,7 @@ resources:
   - ./overseer
   - ./paperless-ngx
   - ./pihole
+  - ./pinchflat
   - ./plex
   - ./prowlarr
   - ./qbittorrent
