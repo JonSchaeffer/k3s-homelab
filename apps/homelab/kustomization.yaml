@@ -17,7 +17,6 @@ resources:
   - ./paperless-ngx
   - ./pihole
   - ./pinchflat
-  - ./pinchflat
   - ./plex
   - ./prowlarr
   - ./qbittorrent
