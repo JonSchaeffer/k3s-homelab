@@ -51,6 +51,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
+                memory: 2Gi
               limits:
                 gpu.intel.com/i915: 1
                 memory: 10Gi
@@ -64,7 +65,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: gpu.intel.com/device-id.0300-1912.present
+                  - key: intel.feature.node.kubernetes.io/gpu
                     operator: In
                     values: ["true"]
       securityContext:
