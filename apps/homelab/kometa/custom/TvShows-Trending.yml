@@ -1,14 +1,14 @@
-collections:
-  Trending TV Shows:
-    tmdb_trending_daily: 20
-    sort_title: "!00_Trending TV Shows"
-    sync_mode: sync
-    collection_order: custom
-    visible_library: true
-    visible_home: true
-    visible_shared: true
-    sonarr_add_missing: true
-    sonarr_search: true
-    sonarr_tag: kometa-trending
-    schedule: daily
-    summary: "The top 20 TV shows trending today, powered by TMDb."
+# collections:
+#   Trending TV Shows:
+#     tmdb_trending_daily: 20
+#     sort_title: "!00_Trending TV Shows"
+#     sync_mode: sync
+#     collection_order: custom
+#     visible_library: true
+#     visible_home: true
+#     visible_shared: true
+#     sonarr_add_missing: true
+#     sonarr_search: true
+#     sonarr_tag: kometa-trending
+#     schedule: daily
+#     summary: "The top 20 TV shows trending today, powered by TMDb."
