@@ -27,16 +27,16 @@ spec:
       overseerr:
         pod:
           securityContext:
-            runAsUser: 2000
-            runAsGroup: 2000
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
-            fsGroup: 2000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
         containers:
           app:
             image:
-              repository: ghcr.io/sct/overseerr
-              tag: 1.35.0@sha256:6197516c9d7b58ccf113455e32aafb94df5d91995fe50e8c2cae6ba6c7c7b7de
+              repository: ghcr.io/seerr-team/seerr
+              tag: latest
             env:
               TZ: America/New_York
               LOG_LEVEL: "info"
