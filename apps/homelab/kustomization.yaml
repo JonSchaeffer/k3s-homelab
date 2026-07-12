@@ -27,3 +27,4 @@ resources:
   - ./sonarr
   - ./stirling-pdf
   - ./tautulli
+  - ./tracearr
