@@ -1,0 +1,152 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app immich
+  namespace: homelab
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: immich-charts
+    namespace: default
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    # Global defaults applied to all Immich components
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              tag: v3.0.0
+            env:
+              DB_HOSTNAME: immich-pg-rw.database
+              DB_USERNAME: immich
+              DB_DATABASE_NAME: immich
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-db-credentials
+                    key: password
+              TZ: America/New_York
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+
+    # Immich-specific configuration
+    immich:
+      persistence:
+        library:
+          existingClaim: immich-library
+
+    # Built-in Valkey (Redis-compatible cache)
+    valkey:
+      enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: docker.io/valkey/valkey
+                tag: 9-alpine
+
+    # --- Server component ---
+    server:
+      enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-server
+              probes:
+                liveness: &server-probes
+                  enabled: true
+                  custom: true
+                  spec:
+                    httpGet:
+                      path: /server-info/ping
+                      port: &server-port 2283
+                    initialDelaySeconds: 5
+                    periodSeconds: 30
+                    timeoutSeconds: 5
+                    failureThreshold: 5
+                readiness: *server-probes
+                startup:
+                  enabled: true
+                  spec:
+                    httpGet:
+                      path: /server-info/ping
+                      port: *server-port
+                    initialDelaySeconds: 5
+                    periodSeconds: 10
+                    failureThreshold: 60
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  memory: 2Gi
+      ingress:
+        main:
+          enabled: true
+          className: tailscale
+          hosts:
+            - host: *app
+              paths:
+                - path: /
+                  service:
+                    identifier: main
+          tls:
+            - hosts:
+                - *app
+
+    # --- Machine Learning component ---
+    machine-learning:
+      enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              image:
+                repository: ghcr.io/immich-app/immich-machine-learning
+              env:
+                TRANSFORMERS_CACHE: /cache
+                HF_XET_CACHE: /cache/huggingface-xet
+                MPLCONFIGDIR: /cache/matplotlib-config
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+                limits:
+                  gpu.intel.com/i915: 1
+                  memory: 4Gi
+          pod:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: gpu.intel.com/device-id.0300-1912.present
+                          operator: In
+                          values: ["true"]
+      persistence:
+        cache:
+          type: persistentVolumeClaim
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 10Gi
+          retain: true
+          globalMounts:
+            - path: /cache

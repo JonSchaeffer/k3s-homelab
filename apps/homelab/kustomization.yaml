@@ -9,6 +9,7 @@ resources:
   - ./dispatcharr
   - ./esphome
   - ./homeassistant
+  - ./immich
   - ./kometa
   - ./maintainerr
   - ./ntfy
