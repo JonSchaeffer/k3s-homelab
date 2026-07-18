@@ -8,6 +8,7 @@ resources:
   - ./degoog
   - ./dispatcharr
   - ./esphome
+  - ./hermes
   - ./homeassistant
   - ./kometa
   - ./maintainerr
