@@ -33,8 +33,7 @@ spec:
               - run
             env:
               HERMES_HOME: /opt/data
-              # Fill these in with your API keys after deployment
-              # See apps/homelab/hermes/secret.yaml
+              HOME: /opt/data
             envFrom:
               - secretRef:
                   name: hermes-secret
