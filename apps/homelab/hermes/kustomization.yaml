@@ -6,4 +6,4 @@ namespace: homelab
 resources:
   - ./hermes.yaml
   - ./pvc.yaml
-  - ./secret.yaml
+  - ./externalsecret.yaml
