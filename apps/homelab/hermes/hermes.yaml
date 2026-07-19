@@ -37,6 +37,10 @@ spec:
               API_SERVER_ENABLED: "true"
               API_SERVER_HOST: 0.0.0.0
               API_SERVER_KEY: 23b193e867199c5a463c62d034101e68
+              HERMES_DASHBOARD: "1"
+              HERMES_DASHBOARD_HOST: 0.0.0.0
+              HERMES_DASHBOARD_BASIC_AUTH_USERNAME: jon
+              HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: WH9liFYR8ywKkmm3
               # Fill these in with your API keys after deployment
               # See apps/homelab/hermes/secret.yaml
             envFrom:
@@ -73,19 +77,36 @@ spec:
         controller: *app
         ports:
           http:
-            port: *port
+            port: 8642
+          dashboard:
+            port: 9119
     ingress:
-      app:
+      api:
         enabled: true
         className: tailscale
-        defaultBackend:
-          service:
-            name: *app
-            port:
-              number: *port
+        hosts:
+          - host: hermes-api
+            paths:
+              - path: /
+                service:
+                  name: *app
+                  port: 8642
         tls:
           - hosts:
             - hermes-api
+      dashboard:
+        enabled: true
+        className: tailscale
+        hosts:
+          - host: *app
+            paths:
+              - path: /
+                service:
+                  name: *app
+                  port: 9119
+        tls:
+          - hosts:
+            - *app
     persistence:
       data:
         existingClaim: hermes-data
