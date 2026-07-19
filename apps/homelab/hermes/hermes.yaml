@@ -34,6 +34,9 @@ spec:
             env:
               HERMES_HOME: /opt/data
               HOME: /opt/data
+              API_SERVER_ENABLED: "true"
+              API_SERVER_HOST: 0.0.0.0
+              API_SERVER_KEY: 23b193e867199c5a463c62d034101e68
               # Fill these in with your API keys after deployment
               # See apps/homelab/hermes/secret.yaml
             envFrom:
