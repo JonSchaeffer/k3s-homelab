@@ -39,6 +39,8 @@ spec:
               HERMES_DASHBOARD_HOST: 0.0.0.0
               HERMES_DASHBOARD_BASIC_AUTH_USERNAME: jon
               HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: WH9liFYR8ywKkmm3
+              HERMES_UID: "1000"
+              HERMES_GID: "1000"
               # Fill these in with your API keys after deployment
               # See apps/homelab/hermes/secret.yaml
             envFrom:
@@ -65,9 +67,6 @@ spec:
                 memory: 2Gi
     defaultPodOptions:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
     service:
