@@ -85,7 +85,7 @@ spec:
               number: *port
         tls:
           - hosts:
-            - *app
+            - hermes-api
     persistence:
       data:
         existingClaim: hermes-data
