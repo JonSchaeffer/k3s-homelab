@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
   - ./bazarr
+  - ./calibre-web
   - ./degoog
   - ./dispatcharr
   - ./esphome
