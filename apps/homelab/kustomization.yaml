@@ -24,6 +24,7 @@ resources:
   - ./qbittorrent
   - ./radarr
   - ./radarr-uhd
+  - ./readarr
   - ./sabnzbd
   - ./scrypted
   - ./sonarr
