@@ -39,10 +39,10 @@ spec:
                   httpGet:
                     path: /home
                     port: &port 5299
-                  initialDelaySeconds: 0
+                  initialDelaySeconds: 90
                   periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
+                  timeoutSeconds: 3
+                  failureThreshold: 5
               readiness: *probes
             securityContext:
               readOnlyRootFilesystem: false
@@ -51,7 +51,7 @@ spec:
                 cpu: 50m
                 memory: 128Mi
               limits:
-                memory: 512Mi
+                memory: 1Gi
     defaultPodOptions:
       securityContext:
         fsGroup: 568
