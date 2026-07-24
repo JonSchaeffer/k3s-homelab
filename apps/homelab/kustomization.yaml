@@ -11,6 +11,7 @@ resources:
   - ./hermes
   - ./homeassistant
   - ./kometa
+  - ./lazy-librarian
   - ./maintainerr
   - ./ntfy
   - ./openclaw
