@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
   - ./bazarr
+  - ./calibre-web
   - ./degoog
   - ./dispatcharr
   - ./esphome
@@ -23,6 +24,7 @@ resources:
   - ./qbittorrent
   - ./radarr
   - ./radarr-uhd
+  - ./readarr
   - ./sabnzbd
   - ./scrypted
   - ./sonarr
