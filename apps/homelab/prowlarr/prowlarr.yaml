@@ -35,6 +35,7 @@ spec:
               PROWLARR__LOG__LEVEL: info
               PROWLARR__SERVER__PORT: &port 80
               PROWLARR__UPDATE__BRANCH: develop
+              DOTNET_SYSTEM_NET_DISABLEIPV6: "1"
               TZ: America/New_York
             # envFrom: &envFrom
               # - secretRef:
