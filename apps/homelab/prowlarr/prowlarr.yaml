@@ -63,13 +63,6 @@ spec:
               limits:
                 memory: 1Gi
     defaultPodOptions:
-      dnsConfig:
-        nameservers:
-          - 1.1.1.1
-        searches:
-          - homelab.svc.cluster.local
-          - svc.cluster.local
-          - cluster.local
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
