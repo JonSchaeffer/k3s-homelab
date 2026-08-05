@@ -62,30 +62,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-          gluetun:
-            env:
-              VPN_SERVICE_PROVIDER: "private internet access"
-              OPENVPN_USER: p2669071
-              OPENVPN_PROTOCOL: tcp
-              OPENVPN_ENDPOINT_PORT: "443"
-              SERVER_REGIONS: "US Chicago"
-              FIREWALL_OUTBOUND_SUBNETS: 10.42.0.0/16,10.43.0.0/16,192.168.0.0/16,1.1.1.1/32
-              DNS_ADDRESS: 1.1.1.1
-            envFrom:
-              - secretRef:
-                  name: sabnzbd-vpn-secret
-            image:
-              repository: ghcr.io/qdm12/gluetun
-              tag: v3.41.3
-            securityContext:
-              capabilities:
-                add:
-                  - NET_ADMIN
-              privileged: true
-              allowPrivilegeEscalation: true
-              runAsUser: 0
-              runAsGroup: 0
-              runAsNonRoot: false
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
