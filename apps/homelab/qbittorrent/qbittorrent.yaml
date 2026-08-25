@@ -21,6 +21,36 @@ spec:
   values:
     controllers:
       qbittorrent:
+        initContainers:
+          ensure-config:
+            image:
+              repository: ghcr.io/home-operations/qbittorrent
+              tag: 5.2.3@sha256:4fcf15b7f265c2c8d7bc2a7e13240a07e0593c326f3cf3b5b9bb69eec5b79299
+            command:
+              - python3
+              - -c
+            args:
+              - |
+                import pathlib, re, shutil
+                p = pathlib.Path("/config/qBittorrent/qBittorrent.conf")
+                defaults = pathlib.Path("/defaults/qBittorrent.conf")
+                p.parent.mkdir(parents=True, exist_ok=True)
+                if not p.exists() and defaults.exists():
+                    shutil.copyfile(defaults, p)
+                s = p.read_text() if p.exists() else ""
+                if "[BitTorrent]" not in s:
+                    s = s.rstrip() + "\n\n[BitTorrent]\n"
+                for key, val in [("Session\\Interface", "tun0"), ("Session\\InterfaceName", "tun0")]:
+                    if not re.search(r"(?m)^" + re.escape(key) + r"=", s):
+                        lines = s.splitlines()
+                        ins = next((i for i, l in enumerate(lines) if l.strip() == "[BitTorrent]"), len(lines))
+                        lines.insert(ins + 1, key + "=" + val)
+                        s = "\n".join(lines) + "\n"
+                p.write_text(s)
+                print("ensured VPN interface binding")
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
         containers:
           app:
             image:
