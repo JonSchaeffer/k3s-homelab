@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pia-wg-refresh
+  namespace: homelab
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pia-wg-refresh
+  namespace: homelab
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["qbittorrent-vpn-secret"]
+    verbs: ["get", "create", "update", "patch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    resourceNames: ["qbittorrent"]
+    verbs: ["get", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pia-wg-refresh
+  namespace: homelab
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pia-wg-refresh
+subjects:
+  - kind: ServiceAccount
+    name: pia-wg-refresh
+    namespace: homelab
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pia-wg-refresh
+  namespace: homelab
+spec:
+  schedule: "17 4 * * *" # daily 04:17 UTC (00:17 Eastern)
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          serviceAccountName: pia-wg-refresh
+          restartPolicy: OnFailure
+          containers:
+            - name: refresh
+              image: ghcr.io/jonschaeffer/pia-wg-refresh:latest
+              env:
+                - name: PIA_USER
+                  value: "p2669071"
+                - name: PIA_PASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: sabnzbd-vpn-secret
+                      key: password
+                - name: PIA_REGION
+                  value: "us_chicago"
+                - name: NAMESPACE
+                  value: "homelab"
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
