@@ -44,7 +44,6 @@ libraries:
       - operations
       - overlays
     collection_files:
-      - file: /config/custom/TvShows-Trending.yml
       - file: /config/custom/TvShows.yml
       - default: basic
       - default: imdb
