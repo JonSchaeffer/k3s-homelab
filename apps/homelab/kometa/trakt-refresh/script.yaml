@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kometa-trakt-refresher
+  namespace: homelab
+data:
+  refresh.py: |
+    #!/usr/bin/env python3
+    """Refresh the Trakt OAuth token and store it back to a Kubernetes Secret."""
+    import base64
+    import json
+    import ssl
+    import sys
+    import urllib.error
+    import urllib.request
+
+    NAMESPACE = "homelab"
+    SECRET_NAME = "kometa-trakt-token"
+    TRAKT_TOKEN_URL = "https://api.trakt.tv/oauth/token"
+    SA_DIR = "/var/run/secrets/kubernetes.io/serviceaccount"
+
+
+    def _read(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read().strip()
+
+
+    def _b64d(value):
+        return base64.b64decode(value).decode()
+
+
+    def _b64e(value):
+        return base64.b64encode(str(value).encode()).decode()
+
+
+    def _k8s(path, method="GET", data=None):
+        token = _read(f"{SA_DIR}/token")
+        ctx = ssl.create_default_context(cafile=f"{SA_DIR}/ca.crt")
+        headers = {"Authorization": f"Bearer {token}"}
+        body = None
+        if data is not None:
+            body = json.dumps(data).encode()
+            headers["Content-Type"] = "application/merge-patch+json"
+        req = urllib.request.Request(
+            f"https://kubernetes.default.svc{path}",
+            data=body,
+            headers=headers,
+            method=method,
+        )
+        with urllib.request.urlopen(req, context=ctx, timeout=30) as resp:
+            raw = resp.read().decode() or "{}"
+            return json.loads(raw)
+
+
+    def main():
+        secret = _k8s(f"/api/v1/namespaces/{NAMESPACE}/secrets/{SECRET_NAME}")
+        data = secret["data"]
+
+        client_id = _b64d(data["KOMETA_TRAKT_CLIENT_ID"])
+        client_secret = _b64d(data["KOMETA_TRAKT_CLIENT_SECRET"])
+        refresh_token = _b64d(data["KOMETA_TRAKT_REFRESH_TOKEN"])
+
+        payload = json.dumps(
+            {
+                "grant_type": "refresh_token",
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "refresh_token": refresh_token,
+            }
+        ).encode()
+
+        req = urllib.request.Request(
+            TRAKT_TOKEN_URL,
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                tokens = json.loads(resp.read().decode())
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            print(f"Trakt refresh failed: HTTP {e.code}: {body}", file=sys.stderr)
+            sys.exit(1)
+        except urllib.error.URLError as e:
+            print(f"Trakt refresh failed: {e.reason}", file=sys.stderr)
+            sys.exit(1)
+
+        patch = {
+            "data": {
+                "KOMETA_TRAKT_ACCESS_TOKEN": _b64e(tokens["access_token"]),
+                "KOMETA_TRAKT_REFRESH_TOKEN": _b64e(tokens["refresh_token"]),
+                "KOMETA_TRAKT_EXPIRES_IN": _b64e(tokens["expires_in"]),
+                "KOMETA_TRAKT_CREATED_AT": _b64e(tokens["created_at"]),
+            }
+        }
+        _k8s(
+            f"/api/v1/namespaces/{NAMESPACE}/secrets/{SECRET_NAME}",
+            method="PATCH",
+            data=patch,
+        )
+        print("Trakt tokens refreshed and stored successfully.")
+
+
+    if __name__ == "__main__":
+        main()

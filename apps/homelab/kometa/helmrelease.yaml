@@ -47,7 +47,18 @@ spec:
                 python3 kometa.py --run --read-only-config --run-libraries "Movies";
                 python3 kometa.py --run --read-only-config --run-libraries "TV Shows";
             env:
-              TZ: *timeZone
+              - name: TZ
+                value: *timeZone
+              - name: KOMETA_TRAKT_CLIENT_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: kometa-trakt-token
+                    key: KOMETA_TRAKT_CLIENT_ID
+              - name: KOMETA_TRAKT_ACCESS_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: kometa-trakt-token
+                    key: KOMETA_TRAKT_ACCESS_TOKEN
             envFrom:
               - secretRef:
                   name: kometa-secret

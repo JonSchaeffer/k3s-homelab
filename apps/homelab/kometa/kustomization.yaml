@@ -7,6 +7,7 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./pvc.yaml
+  - ./trakt-refresh
 configMapGenerator:
   - name: kometa-configmap
     files:
