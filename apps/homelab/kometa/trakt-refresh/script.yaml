@@ -73,7 +73,10 @@ data:
         req = urllib.request.Request(
             TRAKT_TOKEN_URL,
             data=payload,
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "python-requests/2.31.0",
+            },
             method="POST",
         )
         try:
