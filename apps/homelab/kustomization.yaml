@@ -11,6 +11,7 @@ resources:
   - ./esphome
   - ./hermes
   - ./homeassistant
+  - ./immich
   - ./kometa
   - ./lazy-librarian
   - ./maintainerr

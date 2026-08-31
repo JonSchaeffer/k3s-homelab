@@ -1,0 +1,13 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: immich
+  namespace: database
+spec:
+  cluster:
+    name: immich-pg
+  ensure: present
+  name: immich
+  owner: immich
+  allowConnections: true
