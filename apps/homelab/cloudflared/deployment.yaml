@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cloudflared
-          image: ghcr.io/cloudflare/cloudflared:latest
+          image: cloudflare/cloudflared:latest
           args:
             - tunnel
             - --no-autoupdate
