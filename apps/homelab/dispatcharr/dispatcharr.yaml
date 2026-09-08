@@ -60,6 +60,9 @@ spec:
                 memory: 3Gi
     service:
       app:
+        controller: *app
+        type: LoadBalancer
+        loadBalancerClass: tailscale
         ports:
           http:
             appProtocol: kubernetes.io/wss
@@ -82,17 +85,3 @@ spec:
             app:
               - path: /tmp
                 subPath: tmp
-    ingress:
-      app:
-        enabled: true
-        className: tailscale
-        annotations:
-          tailscale.com/funnel: "true"
-        defaultBackend:
-          service:
-            name: *app
-            port:
-              number: *port
-        tls:
-          - hosts:
-              - *app
