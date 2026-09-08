@@ -1,0 +1,32 @@
+---
+# Cloudflared tunnel config. Only Dispatcharr's Xtream Codes / streaming paths
+# are exposed publicly; the Dispatcharr UI stays reachable only on the tailnet
+# (every other path returns 404).
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  namespace: homelab
+data:
+  config.yaml: |
+    tunnel: c179881b-17bd-4a6a-8d9c-e298ecdaeaed
+    credentials-file: /etc/cloudflared/creds/credentials.json
+    ingress:
+      # Xtream Codes API + stream endpoints (public)
+      - hostname: stream.jonschaeffer.dev
+        path: ^/(player_api|panel_api|get|xmltv|streaming/timeshift)\.php
+        service: http://dispatcharr:9191
+      - hostname: stream.jonschaeffer.dev
+        path: ^/live/
+        service: http://dispatcharr:9191
+      - hostname: stream.jonschaeffer.dev
+        path: ^/movie/
+        service: http://dispatcharr:9191
+      - hostname: stream.jonschaeffer.dev
+        path: ^/series/
+        service: http://dispatcharr:9191
+      - hostname: stream.jonschaeffer.dev
+        path: ^/timeshift/
+        service: http://dispatcharr:9191
+      # Everything else (UI, /api, /hdhr) -> 404 (tailnet-only)
+      - service: http_status:404
