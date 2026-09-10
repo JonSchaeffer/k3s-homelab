@@ -1,0 +1,39 @@
+---
+# Refreshes Plex's Live TV guide after Teamarr's hourly EPG generation
+# (Teamarr runs at 0 * * * *; this runs 10 min past the hour via Dispatcharr).
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: plex-guide-refresh
+  namespace: homelab
+spec:
+  schedule: "10 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: refresh
+              image: curlimages/curl:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  TOKEN=$(cat /etc/plex-token/token)
+                  echo "Refreshing Plex guide..."
+                  curl -sS -X POST \
+                    "http://plex:32400/livetv/dvrs/23/reloadGuide?force=1&X-Plex-Token=${TOKEN}" \
+                    -o /dev/null -w "Plex guide refresh: HTTP %{http_code}\n"
+              volumeMounts:
+                - name: plex-token
+                  mountPath: /etc/plex-token
+                  readOnly: true
+          volumes:
+            - name: plex-token
+              secret:
+                secretName: plex-token
