@@ -28,5 +28,9 @@ data:
       - hostname: stream.jonschaeffer.dev
         path: ^/timeshift/
         service: http://dispatcharr:9191
+      # Cached channel logos referenced by the EPG (narrow path only)
+      - hostname: stream.jonschaeffer.dev
+        path: ^/api/channels/logos/
+        service: http://dispatcharr:9191
       # Everything else (UI, /api, /hdhr) -> 404 (tailnet-only)
       - service: http_status:404
