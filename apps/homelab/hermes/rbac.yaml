@@ -70,6 +70,23 @@ rules:
       - helmrepositories
       - ocirepositories
     verbs: ["get", "list", "watch"]
+  # CloudNativePG — read-only, for database diagnostics
+  - apiGroups: ["postgresql.cnpg.io"]
+    resources:
+      - clusters
+      - backups
+      - scheduledbackups
+    verbs: ["get", "list", "watch"]
+  # Longhorn storage CRs — read-only, for capacity/volume diagnostics
+  - apiGroups: ["longhorn.io"]
+    resources:
+      - nodes
+      - volumes
+      - replicas
+      - engines
+      - backups
+      - snapshots
+    verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
