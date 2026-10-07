@@ -17,7 +17,6 @@ resources:
   - ./lazy-librarian
   - ./maintainerr
   - ./ntfy
-  - ./openclaw
   - ./overseer
   - ./paperless-ngx
   - ./pihole
