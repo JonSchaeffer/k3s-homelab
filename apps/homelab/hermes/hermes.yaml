@@ -21,6 +21,79 @@ spec:
   values:
     controllers:
       hermes:
+        serviceAccount:
+          name: hermes
+        initContainers:
+          # Fetch the cluster tooling into a shared emptyDir that the DinD daemon
+          # bind-mounts into every sandbox (sandbox HOME is a tmpfs over /run, so
+          # tools/credentials must live outside /run).
+          fetch-tools:
+            image:
+              repository: alpine
+              tag: "3.20"
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                set -eu
+                apk add --no-cache curl tar gzip >/dev/null
+                D=/opt/hermes-tools
+                curl -fsSL -o "$D/kubectl" "https://dl.k8s.io/release/v1.30.2/bin/linux/amd64/kubectl"
+                curl -fsSL "https://get.helm.sh/helm-v3.16.3-linux-amd64.tar.gz" | tar -xz -C /tmp
+                mv /tmp/linux-amd64/helm "$D/helm"
+                curl -fsSL "https://github.com/fluxcd/flux2/releases/download/v2.4.0/flux_2.4.0_linux_amd64.tar.gz" | tar -xz -C /tmp
+                mv /tmp/flux "$D/flux"
+                curl -fsSL "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.5.0/kustomize_v5.5.0_linux_amd64.tar.gz" | tar -xz -C /tmp
+                mv /tmp/kustomize "$D/kustomize"
+                curl -fsSL -o "$D/yq" "https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64"
+                curl -fsSL -o "$D/jq" "https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64"
+                curl -fsSL "https://github.com/cli/cli/releases/download/v2.62.0/gh_2.62.0_linux_amd64.tar.gz" | tar -xz -C /tmp
+                mv /tmp/gh_2.62.0_linux_amd64/bin/gh "$D/gh"
+                chmod 0755 "$D"/*
+                # In-cluster kubeconfig pointing at the copied service-account files.
+                cat > "$D/kubeconfig" <<EOF
+                apiVersion: v1
+                kind: Config
+                clusters:
+                - name: in-cluster
+                  cluster:
+                    certificate-authority: /opt/k8s-secrets/ca.crt
+                    server: https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}
+                users:
+                - name: hermes
+                  user:
+                    tokenFile: /opt/k8s-secrets/token
+                contexts:
+                - name: in-cluster
+                  context:
+                    cluster: in-cluster
+                    user: hermes
+                current-context: in-cluster
+                EOF
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+          # Keep the terminal backend selection in config.yaml (it overrides the
+          # PVC .env) so a stale "local" value can never silently re-enable it.
+          configure:
+            image:
+              repository: nousresearch/hermes-agent
+              tag: latest@sha256:d4da4a40cd7a28aba983775d9fd31d94cbf153eeb0cb9e844d6d0f612b7c24db
+            command:
+              - /bin/sh
+              - -c
+            args:
+              - |
+                set -eu
+                hermes config set terminal.backend docker
+            env:
+              HERMES_HOME: /opt/data
+              HOME: /opt/data
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 1000
+              runAsNonRoot: true
         containers:
           app:
             image:
@@ -41,8 +114,14 @@ spec:
               HERMES_DASHBOARD_BASIC_AUTH_PASSWORD: WH9liFYR8ywKkmm3
               HERMES_UID: "1000"
               HERMES_GID: "1000"
-              # Fill these in with your API keys after deployment
-              # See apps/homelab/hermes/secret.yaml
+              # Sandbox backend: DinD sidecar, reached over the pod loopback.
+              DOCKER_HOST: tcp://127.0.0.1:2375
+              TERMINAL_ENV: docker
+              # Tooling lives on the DinD daemon's filesystem, so mount it into
+              # sandboxes; credentials are mounted to /opt/k8s-secrets (not /run).
+              TERMINAL_DOCKER_VOLUMES: '["/opt/hermes-tools/kubectl:/usr/local/bin/kubectl:ro","/opt/hermes-tools/helm:/usr/local/bin/helm:ro","/opt/hermes-tools/flux:/usr/local/bin/flux:ro","/opt/hermes-tools/kustomize:/usr/local/bin/kustomize:ro","/opt/hermes-tools/yq:/usr/local/bin/yq:ro","/opt/hermes-tools/jq:/usr/local/bin/jq:ro","/opt/hermes-tools/gh:/usr/local/bin/gh:ro","/opt/hermes-tools:/opt/hermes-tools:ro","/var/run/secrets/kubernetes.io/serviceaccount:/opt/k8s-secrets:ro"]'
+              TERMINAL_DOCKER_ENV: '{"KUBECONFIG":"/opt/hermes-tools/kubeconfig"}'
+              TERMINAL_DOCKER_FORWARD_ENV: '["GITHUB_TOKEN","GH_TOKEN"]'
             envFrom:
               - secretRef:
                   name: hermes-secret
@@ -59,6 +138,43 @@ spec:
                   timeoutSeconds: 5
                   failureThreshold: 5
               readiness: *probes
+            resources:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                memory: 2Gi
+          # Docker-in-Docker: the terminal backend spawns throwaway sandbox
+          # containers from here. Privileged is required by dockerd.
+          dind:
+            image:
+              repository: docker
+              tag: 27-dind
+            # Run dockerd directly: the image entrypoint hard-codes an
+            # additional --host=tcp://0.0.0.0:2375 whenever TLS is disabled,
+            # which clashes with a second listener on 2375. Loopback-only here.
+            command:
+              - /usr/local/bin/dockerd
+            args:
+              - --host=tcp://127.0.0.1:2375
+              - --tls=false
+            env:
+              container: docker
+            securityContext:
+              privileged: true
+            probes:
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - /bin/sh
+                      - -c
+                      - docker -H tcp://127.0.0.1:2375 version >/dev/null 2>&1
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                  failureThreshold: 12
             resources:
               requests:
                 cpu: 100m
@@ -111,3 +227,22 @@ spec:
           hermes:
             app:
               - path: /opt/data
+            configure:
+              - path: /opt/data
+      # Image/container cache for the inner Docker daemon (ephemeral).
+      dind-data:
+        type: emptyDir
+        sizeLimit: 10Gi
+        advancedMounts:
+          hermes:
+            dind:
+              - path: /var/lib/docker
+      # Tooling fetched above; read by the DinD daemon for sandbox bind mounts.
+      k8s-tools:
+        type: emptyDir
+        advancedMounts:
+          hermes:
+            fetch-tools:
+              - path: /opt/hermes-tools
+            dind:
+              - path: /opt/hermes-tools
