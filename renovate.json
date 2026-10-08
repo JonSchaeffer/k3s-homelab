@@ -1,20 +1,39 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "schedule": [
     "after 11pm every weekday",
     "before 5am every weekday"
   ],
   "platformAutomerge": true,
-  "ignorePaths": ["**/flux-system/**"],
+  "ignorePaths": [
+    "**/flux-system/**"
+  ],
   "flux": {
-    "fileMatch": ["\\.yaml$", "\\.yml$"]
+    "fileMatch": [
+      "\\.yaml$",
+      "\\.yml$"
+    ]
   },
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "description": "tailscale-operator 1.102.4 breaks ingress reconciliation: the operator logs `ProxyGroup \"\" does not exist` for every Ingress and skips it, so ingress changes (incl. the funnel annotation on homeassistant) never apply. Pinned to 1.102.3 until upstream fixes it. Re-enable this rule once a fixed release is out.",
+      "matchPackageNames": [
+        "tailscale-operator"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
