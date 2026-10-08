@@ -30,7 +30,7 @@ spec:
           fetch-tools:
             image:
               repository: alpine
-              tag: "3.20"
+              tag: "3.24"
             command:
               - /bin/sh
               - -c
