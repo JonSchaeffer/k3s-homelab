@@ -149,7 +149,7 @@ spec:
           dind:
             image:
               repository: docker
-              tag: 27-dind
+              tag: 29-dind
             # Run dockerd directly: the image entrypoint hard-codes an
             # additional --host=tcp://0.0.0.0:2375 whenever TLS is disabled,
             # which clashes with a second listener on 2375. Loopback-only here.
