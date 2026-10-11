@@ -12,6 +12,7 @@ resources:
   - ./flaresolverr
   - ./esphome
   - ./hermes
+  - ./jellyfin
   - ./homeassistant
   - ./kometa
   - ./lazy-librarian
