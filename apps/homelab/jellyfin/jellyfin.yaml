@@ -120,7 +120,6 @@ spec:
         ports:
           http:
             port: *port
-            nodePort: *port
     ingress:
       app:
         enabled: true
