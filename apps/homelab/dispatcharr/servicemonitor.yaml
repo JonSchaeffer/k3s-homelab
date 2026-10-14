@@ -1,0 +1,14 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: dispatcharr
+  namespace: homelab
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: dispatcharr
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s

@@ -7,3 +7,4 @@ resources:
   - ./dispatcharr.yaml
   - ./pvc.yaml
   - ./ocirepository.yaml
+  - ./servicemonitor.yaml
