@@ -8,7 +8,7 @@ metadata:
 spec:
   secretName: ha-tls
   dnsNames:
-    - ha.jonschaeffer.dev
+    - nesthub.jonschaeffer.dev
   issuerRef:
     name: letsencrypt-dns
     kind: ClusterIssuer

@@ -19,7 +19,7 @@ data:
 
         server {
             listen 8443 ssl;
-            server_name ha.jonschaeffer.dev;
+            server_name nesthub.jonschaeffer.dev;
 
             ssl_certificate     /etc/nginx/certs/tls.crt;
             ssl_certificate_key /etc/nginx/certs/tls.key;
