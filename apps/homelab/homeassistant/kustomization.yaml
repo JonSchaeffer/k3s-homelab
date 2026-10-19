@@ -7,3 +7,5 @@ resources:
   - ./homeassistant.yaml
   - ./configmap.yaml
   - ./pvc.yaml
+  - ./certificate.yaml
+  - ./https-proxy.yaml

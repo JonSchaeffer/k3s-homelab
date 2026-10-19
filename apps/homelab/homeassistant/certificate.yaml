@@ -1,0 +1,14 @@
+---
+# Issues/renews the TLS cert for the Nest Hub LAN-HTTPS path into Secret "ha-tls".
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ha-jonschaeffer-dev
+  namespace: homelab
+spec:
+  secretName: ha-tls
+  dnsNames:
+    - ha.jonschaeffer.dev
+  issuerRef:
+    name: letsencrypt-dns
+    kind: ClusterIssuer

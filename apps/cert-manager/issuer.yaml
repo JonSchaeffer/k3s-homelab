@@ -1,0 +1,20 @@
+---
+# Let's Encrypt issuer using Cloudflare DNS-01 validation. Required for
+# ha.jonschaeffer.dev because the A record points at a private LAN IP, so
+# HTTP-01 validation cannot reach it.
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns
+spec:
+  acme:
+    email: jschaeffer97@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-dns-account-key
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token
+              key: api-token
