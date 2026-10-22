@@ -229,6 +229,11 @@ spec:
               - path: /opt/data
             configure:
               - path: /opt/data
+            # DinD bind-mounts /opt/data subpaths (sandbox HOME/cache) into
+            # sandboxes; mount the PVC here so those survive pod restarts
+            # instead of living on the DinD container's ephemeral layer.
+            dind:
+              - path: /opt/data
       # Image/container cache for the inner Docker daemon (ephemeral).
       dind-data:
         type: emptyDir
