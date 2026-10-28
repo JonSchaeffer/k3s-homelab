@@ -68,6 +68,8 @@ spec:
       lan:
         controller: *app
         type: LoadBalancer
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 192.168.0.83
         ports:
           http:
             port: *port
