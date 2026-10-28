@@ -63,6 +63,14 @@ spec:
         ports:
           http:
             port: *port
+      # LAN-reachable endpoint for the X4 Pro's OPDS client; the tailscale
+      # ingress is only reachable from the tailnet.
+      lan:
+        controller: *app
+        type: LoadBalancer
+        ports:
+          http:
+            port: *port
     ingress:
       app:
         enabled: true
