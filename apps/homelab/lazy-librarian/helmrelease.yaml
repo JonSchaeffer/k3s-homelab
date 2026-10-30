@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: lscr.io/linuxserver/lazylibrarian
-              tag: latest@sha256:ec317dfa2d9e2d42da0654fada518274f537243248ace56b9d509d005180371f
+              tag: latest@sha256:0bc87cfdd2e777adde001e182700d1ac4f8f88e75d0b3ae29f0cfab696341b14
             env:
               PUID: "568"
               PGID: "568"
