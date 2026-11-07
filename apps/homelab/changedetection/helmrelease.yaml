@@ -1,0 +1,99 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app changedetection
+  namespace: homelab
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: default
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      changedetection:
+        containers:
+          app:
+            image:
+              repository: dgtlmoon/changedetection.io
+              tag: 0.70.2@sha256:36ebb3586e9a6b14af6fb488c6e29b60eceb79ee414ecdb6ac2b91dd25b1c7ba
+            env:
+              TZ: America/New_York
+              BASE_URL: https://changedetection.porgy-monitor.ts.net
+              # many retail pages render stock state in JS
+              PLAYWRIGHT_DRIVER_URL: ws://localhost:3000
+              HIDE_REFERER: "1"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 5000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 3
+              readiness: *probes
+            resources:
+              requests:
+                cpu: 20m
+                memory: 256Mi
+              limits:
+                memory: 1Gi
+          browser:
+            image:
+              repository: dgtlmoon/sockpuppetbrowser
+              tag: latest@sha256:1d8f72d2ce2085faed4232e5ae1e65c02efe5b831a18e127829b267c260b4fb2
+            env:
+              TZ: America/New_York
+              SCREEN_WIDTH: "1920"
+              SCREEN_HEIGHT: "1080"
+              MAX_CONCURRENT_CHROME_PROCESSES: "2"
+            resources:
+              requests:
+                cpu: 50m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: changedetection
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        enabled: true
+        className: tailscale
+        defaultBackend:
+          service:
+            name: *app
+            port:
+              number: *port
+        tls:
+          - hosts:
+              - *app
+    persistence:
+      datastore:
+        existingClaim: changedetection-config
+        globalMounts:
+          - path: /datastore
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
