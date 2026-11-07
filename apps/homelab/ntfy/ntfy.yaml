@@ -34,6 +34,13 @@ spec:
               NTFY_CACHE_FILE: /var/lib/ntfy/cache.db
               NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
               NTFY_AUTH_DEFAULT_ACCESS: deny-all
+              # Web UI login for managing users/tokens; signup stays disabled.
+              NTFY_ENABLE_LOGIN: "true"
+              # Public URL used for links/password-reset; the ingress hostname.
+              NTFY_BASE_URL: https://ntfy.porgy-monitor.ts.net
+              # iOS instant notifications: forward poll requests to ntfy.sh so it
+              # can deliver APNs pushes for this self-hosted server.
+              NTFY_UPSTREAM_BASE_URL: https://ntfy.sh
             probes:
               liveness: &probes
                 enabled: true
