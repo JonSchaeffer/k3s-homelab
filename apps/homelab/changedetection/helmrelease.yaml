@@ -32,6 +32,9 @@ spec:
               # many retail pages render stock state in JS
               PLAYWRIGHT_DRIVER_URL: ws://localhost:3000
               HIDE_REFERER: "1"
+              # Watches point at in-cluster services (e.g. the target-stock-bridge);
+              # changedetection refuses private/reserved addresses otherwise.
+              ALLOW_IANA_RESTRICTED_ADDRESSES: "true"
             probes:
               liveness: &probes
                 enabled: true
