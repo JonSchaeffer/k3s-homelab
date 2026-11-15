@@ -9,7 +9,7 @@ spec:
     spec:
       chart: pihole
       reconcileStrategy: Revision
-      version: "2.38.0"
+      version: "2.39.0"
       sourceRef:
         kind: HelmRepository
         name: pihole
