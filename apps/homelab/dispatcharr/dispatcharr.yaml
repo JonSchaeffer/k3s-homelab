@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dispatcharr/dispatcharr
-              tag: 0.28.2@sha256:3eb0ec779f3437ec64c08a9b3f545a355a8f512f3740cdeaac42b80f1021637d
+              tag: 0.34.1@sha256:3716ebb0aba133fe8b3d311505dc49966b7fddff742d9ab710ccd19d04658195
             env:
               CELERY_BROKER_URL: redis://localhost:6379/0
               DISPATCHARR_ENV: aio
