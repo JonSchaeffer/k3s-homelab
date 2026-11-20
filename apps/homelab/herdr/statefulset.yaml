@@ -69,7 +69,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: herdr
-          image: ghcr.io/jonschaeffer/herdr-core:sha-b5234c1
+          image: ghcr.io/jonschaeffer/herdr-core:sha-95d4481
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
