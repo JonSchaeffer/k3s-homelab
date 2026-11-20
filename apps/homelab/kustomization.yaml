@@ -11,6 +11,7 @@ resources:
   - ./teamarr
   - ./flaresolverr
   - ./esphome
+  - ./herdr
   - ./hermes
   - ./jellyfin
   - ./homeassistant

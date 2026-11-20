@@ -1,0 +1,161 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: herdr-headless
+  namespace: homelab
+  labels:
+    app.kubernetes.io/name: herdr
+spec:
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: herdr
+  ports:
+    - name: ssh
+      port: 2222
+      targetPort: ssh
+---
+# Layer 3 ingress for the Tailscale operator. The operator creates a proxy
+# device named "herdr" and forwards herdr:22 to this Service.
+apiVersion: v1
+kind: Service
+metadata:
+  name: herdr
+  namespace: homelab
+  labels:
+    app.kubernetes.io/name: herdr
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: "herdr"
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: herdr
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: ssh
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: herdr
+  namespace: homelab
+spec:
+  replicas: 1
+  serviceName: herdr-headless
+  podManagementPolicy: OrderedReady
+  # Image upgrades kill running terminals, so make them explicit:
+  #   kubectl -n homelab delete pod herdr-0
+  updateStrategy:
+    type: OnDelete
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: herdr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: herdr
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 60
+      imagePullSecrets:
+        - name: ghcr-pull
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: herdr
+          image: ghcr.io/jonschaeffer/herdr-core:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: Etc/UTC
+          ports:
+            - name: ssh
+              containerPort: 2222
+          readinessProbe:
+            tcpSocket:
+              port: ssh
+            initialDelaySeconds: 2
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: ssh
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              memory: 8Gi
+          securityContext:
+            # sshd needs root to authenticate and switch to dev.
+            runAsUser: 0
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+                - SETGID
+                - SETUID
+                - SYS_CHROOT
+                - KILL
+                - AUDIT_WRITE
+          volumeMounts:
+            - name: home
+              mountPath: /home/dev
+            - name: workspace
+              mountPath: /workspace
+            - name: authorized-keys
+              mountPath: /run/herdr
+              readOnly: true
+            - name: github-token
+              mountPath: /run/herdr-github
+              readOnly: true
+            - name: ssh-password
+              mountPath: /run/herdr-password
+              readOnly: true
+            - name: shm
+              mountPath: /dev/shm
+      volumes:
+        - name: authorized-keys
+          configMap:
+            name: herdr-authorized-keys
+            defaultMode: 0400
+        - name: github-token
+          secret:
+            secretName: herdr-github
+            defaultMode: 0400
+        - name: ssh-password
+          secret:
+            secretName: herdr-ssh-password
+            defaultMode: 0400
+            optional: true
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
+  volumeClaimTemplates:
+    - metadata:
+        name: home
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 10Gi
+    - metadata:
+        name: workspace
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 50Gi

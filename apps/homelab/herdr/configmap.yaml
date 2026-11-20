@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: herdr-authorized-keys
+  namespace: homelab
+data:
+  authorized_keys: |
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFH6iyUE6EcTDIiJS7VZjuMVCZ6ub3f2zOeWvAhxm730 jon@Jons-MacBook-Pro.local
