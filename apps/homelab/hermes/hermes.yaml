@@ -79,7 +79,7 @@ spec:
           configure:
             image:
               repository: nousresearch/hermes-agent
-              tag: latest@sha256:276d44685c65c0cb2a25f190b63c65c8906f9dc76486fb1c05ae71b5826bda08
+              tag: latest@sha256:3e9fe4c6ef36490f43aa0d0d80f9df64e9c92a576eee3042f1a97c8813c05355
             command:
               - /bin/sh
               - -c
@@ -98,7 +98,7 @@ spec:
           app:
             image:
               repository: nousresearch/hermes-agent
-              tag: latest@sha256:276d44685c65c0cb2a25f190b63c65c8906f9dc76486fb1c05ae71b5826bda08
+              tag: latest@sha256:3e9fe4c6ef36490f43aa0d0d80f9df64e9c92a576eee3042f1a97c8813c05355
             args:
               - gateway
               - run
