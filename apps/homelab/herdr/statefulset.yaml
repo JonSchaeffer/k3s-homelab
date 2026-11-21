@@ -94,9 +94,10 @@ spec:
             limits:
               memory: 8Gi
           securityContext:
-            # sshd needs root to authenticate and switch to dev.
+            # sshd needs root to authenticate and switch to dev. sudo is
+            # setuid, so privilege escalation must stay enabled for apt.
             runAsUser: 0
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
             capabilities:
               drop: ["ALL"]
               add:
