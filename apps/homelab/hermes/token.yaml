@@ -1,0 +1,13 @@
+---
+# A kubernetes.io/service-account-token Secret is filled by the controller and has no
+# expiry, unlike a minted token (kubectl create token), which defaults to one hour and
+# is invalidated if the ServiceAccount is recreated. That is what has been silently
+# breaking the agent's cluster access.
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hermes-token
+  namespace: homelab
+  annotations:
+    kubernetes.io/service-account.name: hermes
+type: kubernetes.io/service-account-token

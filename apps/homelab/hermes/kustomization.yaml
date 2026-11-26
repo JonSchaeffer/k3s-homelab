@@ -7,4 +7,5 @@ resources:
   - ./hermes.yaml
   - ./pvc.yaml
   - ./rbac.yaml
+  - ./token.yaml
   - ./externalsecret.yaml

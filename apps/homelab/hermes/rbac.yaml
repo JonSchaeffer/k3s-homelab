@@ -86,6 +86,22 @@ rules:
       - engines
       - backups
       - snapshots
+      - settings
+      - instancemanagers
+      - engineimages
+      - recurringjobs
+    verbs: ["get", "list", "watch"]
+  # CRD discovery — needed to tell "no such resource" apart from "not permitted"
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources:
+      - customresourcedefinitions
+    verbs: ["get", "list", "watch"]
+  # CSI plumbing — read-only, for volume-attach diagnostics
+  - apiGroups: ["storage.k8s.io"]
+    resources:
+      - csinodes
+      - csidrivers
+      - csistoragecapacities
     verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
